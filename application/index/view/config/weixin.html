@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>微信公众号配置</title>
+    <link rel="stylesheet" href="/static/admin/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/admin/custom/css/style.css">
+</head>
+<body style="padding:10px 10px;">
+<div class="layui-container">
+    <form class="layui-form" action="?" method="post" enctype="multipart/form-data">
+        <div class="layui-form-item">
+            <label class="layui-form-label">AppID</label>
+            <div class="layui-input-block">
+                <input type="text" name="appid" value="{$config.appid?$config.appid:''}" placeholder="请输入开发者ID(AppID)" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">AppSecret</label>
+            <div class="layui-input-block">
+                <input type="text" name="appSecret" value="{$config.appSecret?$config.appSecret:''}" placeholder="请输入开发者密码(AppSecret)" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">令牌(Token)</label>
+            <div class="layui-input-block">
+                <input type="text" name="token" value="{$config.token?$config.token:'yifengketang'}" required  lay-verify="required" placeholder="请输入令牌(Token)" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">EncodingAESKey</label>
+            <div class="layui-input-block">
+                <input type="text" name="encodingaeskey" value="{$config.encodingaeskey?$config.encodingaeskey:''}" placeholder="请输入消息加解密密钥" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">关注欢迎语</label>
+            <div class="layui-input-block">
+                <input type="text" name="welcome" value="{$config.welcome?$config.welcome:'欢迎关注微信公众号'}" required  lay-verify="required" placeholder="请输入关注欢迎语" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/static/admin/vendor/js/jquery.js"></script>
+<script src="/static/admin/vendor/layui/layui.js"></script>
+<script src="/static/admin/custom/js/admin.js"></script>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+        });
+    });
+    $(function(){
+        $(window.parent.document).find('#righttitle').text($('title').text());
+    });
+</script>
+</body>
+</html>

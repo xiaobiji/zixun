@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>{$config.title}</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="keywords" content="{$config.keyword}">
+<meta name="description" content="{$config.desc}">
+<LINK rel="Bookmark" href="favicon.ico" >
+<LINK rel="Shortcut Icon" href="favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="__INDEX__/staticRes/js/html5shiv.js"></script>
+    <script type="text/javascript" src="__INDEX__/staticRes/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="__INDEX__/plugin/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="__INDEX__/plugin/Hui-iconfont/1.0.8/iconfont.min.css" />
+    <link rel="stylesheet" type="text/css" href="__INDEX__/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="__INDEX__/plugin/pifu/pifu.css" />
+<!--[if lt IE 9]>
+<link href="__INDEX__/staticRes/lib/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<script type="application/x-javascript">
+	addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);function hideURLbar(){ window.scrollTo(0,1); } function showSide(){$('.navbar-nav').toggle();}</script>
+</head>
+<body>
+{include file='common/header'}
+
+<section class="container pt-20">
+	<!--<div class="Huialert Huialert-info"><i class="Hui-iconfont">&#xe6a6;</i>成功状态提示</div>-->
+  <!--left-->
+  <div class="col-sm-9 col-md-9">
+  	<!--滚动图-->
+  	<div class="slider_main">
+            <div class="slider">
+                <div class="bd">
+                    <ul>
+						{volist name="banner" id="vo"}
+                        <li><a href="{$vo.url}" target="_blank"><img src="/public/{$vo.pic}"></a></li>
+						{/volist}
+                    </ul>
+                </div>
+                <ol class="hd cl dots">
+					{volist name="banner" id="vo" key='key'}
+                    <li>{$key}</li>
+					{/volist}
+                </ol>
+                <a class="slider-arrow prev" href="javascript:void(0)"></a>
+                <a class="slider-arrow next" href="javascript:void(0)"></a>
+            </div>
+        </div>
+  		
+		<div class="mt-20 bg-fff box-shadow radius mb-5">
+			<div class="tab-category">
+				<a href=""><strong class="current">最新发布</strong></a>
+			</div>
+		</div>
+		<div class="art_content">
+			<ul class="index_arc">
+				{volist name="articles" id="vo"}
+				<li class="index_arc_item {if empty($vo.thumb)}no_pic{/if}">
+					{if !empty($vo.thumb)}
+					<a href="{:url('article/index',['id'=>$vo['id']])}" target="_blank" class="pic">
+						<img class="lazyload" data-original="{$vo.thumb}" alt="应该选" />
+					</a>
+					{/if}
+					<h4 class="title"><a href="{:url('article/index',['id'=>$vo['id']])}" target="_blank">{$vo.title}</a></h4>
+					<div class="date_hits">
+						<span>{$vo.author}</span>
+						<span>{$vo.addtime}</span>
+						<span><a href="{:url('article/index',['id'=>$vo['id']])}">{$vo.title}</a></span>
+						<p class="hits"><i class="Hui-iconfont" title="点击量">&#xe6c1;</i> {$vo.click_num}° </p>
+						<p class="commonts"><i class="Hui-iconfont" title="点击量">&#xe622;</i> <span class="cy_cmt_count">{$vo.cmt_count}</span></p>
+					</div>
+					<div class="desc">{$vo.desc}</div>
+				</li>
+				{/volist}
+				</ul>
+
+            {$articles->render()}
+  		<!--<div class="text-c mb-20" id="moreBlog">-->
+	        <!--<a class="btn  radius btn-block " href="javascript:;" onclick="moreBlog();">点击加载更多</a>-->
+	        <!--<a class="btn  radius btn-block hidden" href="javascript:;">加载中……</a>-->
+	    <!--</div>-->
+		</div>
+  </div>
+  
+  <!--right-->
+  <div class="col-sm-3 col-md-3">
+  	
+  	<!--站点声明-->
+        <div class="panel panel-default mb-20">
+            <div class="panel-body">
+                <i class="Hui-iconfont" style="float: left;">&#xe62f;&nbsp;</i>
+                <div class="slideTxtBox" style="height: 20px">
+                    <div class="bd">
+                        <ul>
+                            {volist name='noticeData' id="vo"}
+                            <li><a href="javascript:void(0);">{$vo.title}</a></li>
+                            {/volist}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+  	<!--博主信息-->
+        <div class="bg-fff box-shadow radius mb-20">
+            <div class="tab-category">
+                <a href=""><strong>博主信息</strong></a>
+            </div>
+            <div class="tab-category-item">
+                <ul class="index_recd">
+                    <li class="index_recd_item"><i class="Hui-iconfont">&#xe653;</i>名称：{$config.title}</li>
+                    <li class="index_recd_item"><i class="Hui-iconfont">&#xe70d;</i>说明：{$config.desc}</li>
+                    <li class="index_recd_item"><i class="Hui-iconfont">&#xe63b;</i>邮箱：<a href="mailto:{$config.email}">{$config.email}</a></li>
+                    <li class="index_recd_item"><i class="Hui-iconfont">&#xe671;</i>定位：{$config.address}</li>
+                </ul>
+            </div>
+        </div>
+
+      <!--标签-->
+      <div class="bg-fff box-shadow radius mb-20">
+          <div class="tab-category">
+              <a href=""><strong>标签云</strong></a>
+          </div>
+          <div class="tab-category-item">
+              <div class="tags">
+                  {volist name="tagsData" id="vo"}
+                  <a href="{:url('search/tags',['keywords'=>$vo['id']])}">{$vo.tname}</a>
+                  {/volist}
+              </div>
+          </div>
+      </div>
+  	<!--热门推荐-->
+  	<div class="bg-fff box-shadow radius mb-20">
+			<div class="tab-category">
+				<a href=""><strong>热门推荐</strong></a>
+			</div>
+			<div class="tab-category-item">
+				<ul class="index_recd">
+                    {volist name="hot_articles" id="vo"}
+                    <li>
+						<a href="{:url('article/index',['id'=>$vo['id']])}" target="_blank">{$vo.title}</a>
+						<p class="hits"><i class="Hui-iconfont" title="点击量">&#xe622;</i> {$vo.cmt_count} </p>
+					</li>
+                    {/volist}
+				</ul>
+			</div>
+		</div>
+		
+		<!--点击排行-->
+        <div class="bg-fff box-shadow radius mb-20">
+            <div class="tab-category">
+                <a href=""><strong>点击排行</strong></a>
+            </div>
+            <div class="tab-category-item">
+                <ul class="index_recd clickTop">
+                    {volist name="click_articles" id="vo"}
+                    <li>
+                        <a href="{:url('article/index',['id'=>$vo['id']])}" target="_blank">{$vo.title}</a>
+                        <p class="hits"><i class="Hui-iconfont" title="点击量">&#xe6c1;</i> {$vo.click_num}° </p>
+                    </li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+        
+
+		<!--图片-->
+		<!--<div class="bg-fff box-shadow radius mb-20">-->
+			<!--<div class="tab-category">-->
+				<!--<a href=""><strong>扫我关注</strong></a>-->
+			<!--</div>-->
+			<!--<div class="tab-category-item">-->
+				<!--<img data-original="__INDEX__/temp/gg.jpg" class="img-responsive lazyload" alt="响应式图片">-->
+			<!--</div>-->
+		<!--</div>-->
+		
+		<!--友情链接-->
+		<div class="bg-fff box-shadow radius mb-20">
+			<div class="tab-category">
+				<a href=""><strong>隔壁邻居</strong></a>
+			</div>
+			<div class="tab-category-item">
+                {volist name="linksData" id="vo"}
+				<span><i class="Hui-iconfont">&#xe6f1;</i><a href="{$vo.url}" target="_blank" class="btn-link">{$vo.name}</a></span>
+                {/volist}
+			</div>
+		</div>
+		<!--最近访客-->
+		<!--<div class="bg-fff box-shadow radius mb-20">-->
+            <!--<div class="tab-category">-->
+                <!--<a href=""><strong>最近访客</strong></a>-->
+            <!--</div>-->
+            <!--<div class="panel-body">-->
+                <!--<ul class="recent">-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                    <!--<div class="item"><img src="__INDEX__/img/40.jpg" alt=""></div>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+        
+		<!--分享-->
+        <div class="bg-fff box-shadow radius mb-20">
+            <div class="tab-category">
+                <a href=""><strong>站点分享</strong></a>
+            </div>
+            <div class="panel-body">
+
+                <div class="bdsharebuttonbox Hui-share"><a href="#" class="bds_weixin Hui-iconfont" data-cmd="weixin" title="分享到微信">&#xe694;</a><a href="#" class="bds_qzone Hui-iconfont" data-cmd="qzone" title="分享到QQ空间">&#xe6c8;</a> <a href="#" class="bds_sqq Hui-iconfont" data-cmd="sqq" title="分享到QQ好友">&#xe67b;</a> <a href="#" class="bds_tsina Hui-iconfont" data-cmd="tsina" title="分享到新浪微博">&#xe6da;</a> <a href="#" class="bds_tqq Hui-iconfont" data-cmd="tqq" title="分享到腾讯微博">&#xe6d9;</a></div>
+            </div>
+        </div>
+	
+	
+	
+
+  </div>
+  
+</section>
+<footer class="footer mt-20">
+    <div class="container-fluid" id="foot">
+        <p>Copyright &copy; 2016-2017 www.wfyvv.com <br>
+            <a href="#" target="_blank">皖ICP备17002922号</a>  更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a><br>
+        </p>
+    </div>
+</footer>
+<script type="text/javascript" src="__INDEX__/plugin/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/layer/3.0/layer.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/pifu/pifu.js"></script>
+<script type="text/javascript" src="__INDEX__/js/common.js"></script>
+<script> $(function(){ $(window).on("scroll",backToTopFun); backToTopFun(); }); </script>
+<script type="text/javascript" src="__INDEX__/plugin/jquery.SuperSlide/2.1.1/jquery.SuperSlide.min.js"></script>
+
+<script>
+$(function(){
+//幻灯片
+jQuery(".slider_main .slider").slide({mainCell: ".bd ul", titCell: ".hd li", trigger: "mouseover", effect: "leftLoop", autoPlay: true, delayTime: 700, interTime: 2000, pnLoop: true, titOnClassName: "active"})
+//tips
+jQuery(".slideTxtBox").slide({titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "top", autoPlay: true});
+//标签
+	$(".tags a").each(function(){
+		var x = 9;
+		var y = 0;
+		var rand = parseInt(Math.random() * (x - y + 1) + y);
+		$(this).addClass("tags"+rand)
+	});
+	
+	$("img.lazyload").lazyload({failurelimit : 3});
+});
+
+</script> 
+
+</body>
+</html>

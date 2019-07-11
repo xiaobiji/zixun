@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script> 
+</head>
+<body>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/lxbanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		<div class="curadress"><a href="/">首页</a> > <a href="{:url('index/news/index')}">新闻政策</a> > <a>新闻中心</a> > 详情页</div>
+	</div>
+</div>
+<div class="container detailbox">
+	<h2>{$detail.title}</h2>
+	<h5>发布日期：{:date('Y-m-d',$detail.addtime)}&nbsp;&nbsp;&nbsp;&nbsp;来源：建工华创&nbsp;&nbsp;&nbsp;&nbsp;作者：{$detail.author}&nbsp;&nbsp;&nbsp;&nbsp;浏览次数：<em>{$detail.views}</em></h5>
+	<div class="detailtext">
+		{$detail.content}
+	</div>
+	<div class="sharebox">
+		<span>分享到：</span>
+		<div class="imgboxico">
+			<a>
+				<em class="shareico ico01"></em>
+				<p>新浪微博</p>
+			</a>
+			<a>
+				<em class="shareico ico02"></em>
+				<p>QQ空间</p>
+			</a>
+			<a>
+				<em class="shareico ico03"></em>
+				<p>腾讯微博</p>
+			</a>
+			<a>
+				<em class="shareico ico04"></em>
+				<p>微信</p>
+			</a>
+			<a>
+				<em class="shareico ico05"></em>
+				<p>人人网</p>
+			</a>
+			<a>
+				<em class="shareico ico06"></em>
+				<p>豆瓣网</p>
+			</a>
+		</div>
+	</div>
+	<div class="linkother">
+		<a href="{:url('index/news/detail',['id'=>$front.id])}">上一篇：{empty name='$front'}没有了{else /}{$front.title}{/empty}</a>
+		<a href="{:url('index/news/detail',['id'=>$after.id])}">下一篇：{empty name='$after'}没有了{else /}{$after.title}{/empty}</a>
+	</div>
+</div>
+{include file='common/footer'}
+</body>
+</html>

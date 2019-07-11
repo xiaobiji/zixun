@@ -1,0 +1,136 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$config.title}</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta name="generator" content=""  data-variable="http://www.hctech.com.cn/|cn||||r028" />
+<link href="http://www.hctech.com.cn/favicon.ico" rel="shortcut icon" />
+<link rel="stylesheet" type="text/css" href="/public/static/index/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/public/static/index/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="/public/static/index/css/metinfo.css" />
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.1.4.2-min.js"></script>
+</head>
+<body>
+<div class="container met-head">
+
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 logo">
+	<ul class="list-none">
+		<li><a href="/" class="met-logo"><img src="/public/static/index/images/logo.png" /></a></li>
+
+		<li>会员注册</li>
+
+	</ul>
+				</div>
+
+				<div class="col-xs-6 col-sm-6 user-info">
+					<ol class="breadcrumb pull-right">
+
+					  <li><a href="/" title="返回首页">返回首页</a></li>
+					</ol>
+				</div>
+			</div>
+
+</div>
+
+<div class="register_index met-member">
+	<div class="container">
+		<form id="loginForm" class="form-register met-form" method="post">
+
+			<div class="form-group met-form-choice">
+				<div class="row">
+					<div class="met-form-file-title col-md-3">用户名</div>
+					<div class="col-md-9">
+						<input type="text" name="info_user" class="form-control" value=""  placeholder="用户名">
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group met-form-choice">
+				<div class="row">
+					<div class="met-form-file-title col-md-3">密码</div>
+					<div class="col-md-9">
+						<input type="password" name="info_pwd" class="form-control" value=""  placeholder="密码">
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group met-form-choice">
+				<div class="row">
+					<div class="met-form-file-title col-md-3">确认密码</div>
+					<div class="col-md-9">
+						<input type="password" name="info_pwd2" class="form-control" value=""  placeholder="确认密码">
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group met-form-choice">				
+				<div class="row">
+					<div class="met-form-file-title col-md-3">手机号码</div>
+					<div class="col-md-9">
+						<input type="text" name="info_tel" class="form-control" value=""  placeholder="手机号码">
+					</div>
+				</div>
+			</div>
+
+
+			<div class="form-group met-form-choice">				
+				<div class="row">
+					<div class="met-form-file-title col-md-3">联系邮箱</div>
+					<div class="col-md-9">
+						<input type="text" name="info_email" class="form-control" value=""  placeholder="邮箱">
+					</div>
+				</div>
+			</div>
+
+			<a href="javascript:void(0)" class="btn btn-lg btn-primary btn-block" onclick="checkSubmit()">立即注册</a>
+			<div class="login_link"><a href="{:url('index/member/login')}">已有账号？</a></div>
+		</form>
+		<script>
+			function checkSubmit(){
+				var username = $.trim($("input[name='info_user']").val());
+				var password = $.trim($("input[name='info_pwd']").val());
+				var password2 = $.trim($("input[name='info_pwd2']").val());
+				var tel = $.trim($("input[name='info_tel']").val());
+				var email = $.trim($("input[name='info_email']").val());
+				if (username == ''){
+					alert('用户名不能为空');
+					return false;
+				}
+				if (password == ''){
+					alert('密码不能为空');
+					return false;
+				}
+				if (password !== password2){
+					alert('两次输入密码不一致');
+					return false;
+				}
+				$.ajax({
+					url:'{:url("index/member/register")}',
+					data:$('#loginForm').serialize(),
+					dataType:'json',
+					type:'post',
+					success:function(res){
+						if (res.status == 'success'){
+							alert('注册成功!');
+							window.location.href = '/';
+						}else{
+							var error = res.errorinfo;
+							alert(error);
+						}
+					}
+				})
+			}
+		</script>
+	</div>
+</div>
+
+<footer class="container met-footer">
+	<p>公司致力于将低能耗装配式建筑应用到广大的农村和民生、旅游领域，让绿色、低成本的舒适生活方式惠及千百万人</p>
+
+</footer>
+</body>
+</html>

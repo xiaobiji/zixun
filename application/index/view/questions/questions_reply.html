@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$Think.lang.questions_add}</title>
+    <link rel="stylesheet" href="/public/static/admin/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="/public/static/admin/custom/css/style.css">
+    <style>
+        .layui-form-select dl{z-index: 2;}
+        #thumb_list{padding-top: 8px;}
+        #thumb_list img{border: 1px solid #DDD;padding: 3px;border-radius: 5px;}
+        #thumb_list span{position: relative;display: inline-block;margin-right: 5px;}
+        #thumb_list span .delimg{position: absolute;right:3px;top:3px;}
+    </style>
+</head>
+<body style="padding:10px 10px;margin-bottom: 50px;">
+<div class="layui-container">
+
+    <table class="layui-table" lay-size="md">
+        <colgroup>
+            <col width="100">
+            <col width="400">
+            <col width="100">
+        </colgroup>
+        <thead>
+        <tr style="height: 45px" pid="0">
+            <th>{$Think.lang.questioner}</th>
+            <th>{$Think.lang.question}</th>
+            <th>{$Think.lang.addtime}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>{$show_data.questioner}</td>
+            <td>{$show_data.title}</td>
+            <td>{$show_data.add_time|date="Y/m/d H:i:s",###}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form class="layui-form" action="?" method="post">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.contenttitle}</label>
+            <div class="layui-input-block">
+                <!-- 加载编辑器的容器 -->
+                <textarea id="container" name="content" type="text/plain" ></textarea>
+            </div>
+        </div>
+
+        <input type="hidden" name="__token__" value="{$Request.token}" />
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">{$Think.lang.subbtn}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/public/static/admin/vendor/js/jquery.js"></script>
+<script src="/public/static/admin/vendor/layui/layui.js"></script>
+<script src="/public/static/admin/custom/js/admin.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/public/static/admin/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/public/static/admin/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container',{
+        //initialFrameWidth:'100%',
+        initialFrameHeight:300
+    });
+</script>
+</body>
+</html>

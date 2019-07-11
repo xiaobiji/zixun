@@ -1,0 +1,444 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+
+
+    <title>{dede:global.cfg_webname/}</title>
+    <meta name="description" content="{dede:global.cfg_description/}" />
+    <meta name="keywords" content="{dede:global.cfg_keywords/}" />
+    <link href="{dede:global.cfg_templets_skin/}/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{dede:global.cfg_templets_skin/}/js/jquery-1.11.0.min.js"></script>
+    <!--[if lt IE 9]-->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!--[endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet"> -->
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/icomoon.css">
+    <!-- Themify Icons-->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/themify-icons.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link href="{dede:global.cfg_templets_skin/}/css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/owl.theme.default.min.css">
+    <!-- Flexslider -->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/flexslider.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/style.css">
+    <!-- Modernizr JS -->
+    <script src="{dede:global.cfg_templets_skin/}/js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="{dede:global.cfg_templets_skin/}/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/styleindex.css">
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/video.css">
+    <!-- Modernizr JS -->
+
+    <script src="{dede:global.cfg_templets_skin/}/js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+</head>
+<body>
+<div class="gtco-loader"></div>
+<div id="page">
+    <nav class="gtco-nav" role="navigation">
+        <div class="gtco-container">
+            <div class="row">
+                <div class="col-sm-2 col-xs-12">
+                    <div id="gtco-logo"><a href="index.html">{dede:global.cfg_webname/}<em>.</em></a></div>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <ul>
+                        <li class="active"><a href="">中文</a></li>
+                        <li><a href="">English</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-8 text-right menu-1 main-nav">
+                    <ul>
+                        <li class="active"><a href="#" data-nav-section="home">主页</a></li>
+                        <li><a href="#" data-nav-section="Sale">热卖</a></li>
+                        <li><a href="#" data-nav-section="Product">产品</a></li>
+                        <li><a href="#" data-nav-section="Video">视频</a></li>
+                        <li><a href="#" data-nav-section="About">关于我们</a></li>
+                        <li><a href="#" data-nav-section="News">新闻</a></li>
+                        <li><a href="#" data-nav-section="Contact">联系我们</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- <div id="gtco-hero" class="js-fullheight"  data-section="home">
+      <div class="flexslider js-fullheight">
+        <ul class="slides">
+
+          {dede:arclist titlelen='60' typeid="14"}
+          <li style="background-image: url([field:litpic /]); background-size: 100%;">
+            <div class="overlay"></div>
+            <div class="container">
+            </div>
+          </li>
+          {/dede:arclist}
+
+          </ul>
+        </div>
+    </div> -->
+
+
+
+    <div id="myCarousel" class="carousel slide" data-section="home" >
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            {dede:arclist titlelen='60' typeid="14"}
+
+            [field:global runphp='yes' name=autoindex]
+            if (@me < 2)
+            @me = '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
+            else
+            {
+            @me = @me-1;
+            @me = ' <li data-target="#myCarousel" data-slide-to="'.@me.'"></li>';
+            }
+
+            [/field:global]
+
+            {/dede:arclist}
+        </ol>
+        <!-- 轮播（Carousel）图片 -->
+        <div class="carousel-inner">
+
+            {dede:arclist titlelen='60' typeid="14"}
+            [field:global runphp='yes' name=autoindex]
+            if (@me < 2)
+            @me = '<div class="item active">';
+            else
+            @me = '<div class="item">';
+                [/field:global]
+                <img src="[field:litpic /]" alt="[field:title /]">
+            </div>
+            {/dede:arclist}
+        </div>
+            <!-- 轮播（Carousel）导航 -->
+            <a class="carousel-control left" href="#myCarousel"
+               data-slide="prev"><img src="{dede:global.cfg_templets_skin/}/images/4.png" style="margin-top:80%;">
+            </a>
+            <a class="carousel-control right" href="#myCarousel"
+               data-slide="next"><img src="{dede:global.cfg_templets_skin/}/images/3.png" style="margin-top:80%;">
+            </a>
+        </div>
+
+
+
+
+        <div class="gtco-section-overflow">
+            <div class="gtco-section" id="gtco-services" data-section="Sale">
+                <!--特卖-->
+                <div class="gtco-container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="gtco-heading">
+                                {dede:type typeid="12"}
+                                <h2 class="gtco-left">[field:typename/]</h2>
+                                <p>[field:description/]</p>
+                                {/dede:type}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimony">
+                    <div class="container">
+                        <div class="testimony-main">
+                            <ul class="rslides" id="slider">
+                                {dede:arclist titlelen='60' infolen='360' row='8' typeid='12' addfields="price" channelid="1"}
+                                <li>
+                                    <div class="testimo-slid">
+                                        <div class="testimony-left">
+                                            <a href="[field:arcurl/]"><img src="[field:litpic/]" alt="" class="img-responsive"></a>
+                                        </div>
+                                        <div class="testimony-right">
+                                            <h4><a href="[field:arcurl/]">[field:title/]</a></h4>
+                                            <p>[field:infos/]</h4>
+                                            <h4>￥[field:price/]</h4>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </li>
+                                {/dede:arclist}
+
+                            </ul>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                </div>
+                <!--特卖testmony end here-->
+                <div class="gtco-section" id="gtco-portfolio" data-section="Product">
+                    <div class="gtco-container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                                {dede:type typeid='3'}
+                                <h2><a style="color: #0b0b0b" href="[field:typelink /]">[field:typename/]</a></h2>
+                                <p>[field:description /]</p>
+                                {/dede:type}
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            {dede:arclist titlelen='30' flag = 'c' orderby='weight' isweight='y' infolen='150' row='6'  typeid="3"}
+                            <div class="col-md-4">
+                                <a href="[field:arcurl /]" class="gtco-card-item has-text">
+                                    <figure>
+                                        <div class="overlay"><i class="ti-plus"></i></div>
+                                        <img src="[field:litpic /]" alt="[field:title /]" class="img-responsive">
+                                    </figure>
+                                    <div class="gtco-text text-left">
+                                        <h2>[field:title /]</h2>
+                                        <p>[field:infos /]</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {/dede:arclist}
+
+
+                            <div class="clearfix visible-lg-block visible-md-block"></div>
+                            <div class="clearfix visible-sm-block"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center animate-box mg1">
+                        {dede:type typeid="3"}
+                        <p><a href="[field:typelink /]" class="btn btn-primary with-arrow">查看更多<i class="icon-arrow-right"></i></a></p>
+                        {/dede:type}
+                    </div>
+                </div>
+
+                <div class="gtco-section " id="gtco-faq" data-section="Video">
+                    <div class="gtco-container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                                {dede:type typeid="10"}
+                                <h2>[field:typename/]</h2>
+                                <p>[field:description/]</p>
+                                {/dede:type}
+                            </div>
+                        </div>
+
+
+                        <div class="about-grids">
+                            {dede:arclist titlelen='60' typeid="10" infolen='160' row='8'  name="autoindex"}
+                            <div class="col-md-3 about-right-grid">
+                                <a class="popup-with-zoom-anim" href="#small-dialog[field:global name=autoindex/]">
+                                    <img src="[field:litpic /]" alt="[field:title /]" title="[field:title /]">
+                                </a>
+                            </div>
+                            {/dede:arclist}
+                            <div class="clearfix"> </div>
+                        </div>
+
+                        <!-- about-grids -->
+                        <div class="clearfix"> </div>
+                        <!---pop-up-box---->
+                        <script src="{dede:global.cfg_templets_skin/}/js/jquery.magnific-popup.js" type="text/javascript"></script>
+                        <!---//pop-up-box---->
+                        {dede:arclist titlelen='60' typeid="10" infolen='160' row='8' addfields="video" channelid="1" name="autoindex" }
+                        <div id="small-dialog[field:global name=autoindex/]" class="mfp-hide">
+                            <video style="width: 80%;height: 60%;margin-left: 10%" controls="controls" src="[field:video /]"> </video>
+                        </div>
+                        {/dede:arclist}
+
+                        <script>
+                            $(document).ready(function() {
+                                $('.popup-with-zoom-anim').magnificPopup({
+                                    type: 'inline',
+                                    fixedContentPos: false,
+                                    fixedBgPos: true,
+                                    overflowY: 'auto',
+                                    closeBtnInside: true,
+                                    preloader: false,
+                                    midClick: true,
+                                    removalDelay: 300,
+                                    mainClass: 'my-mfp-zoom-in'
+                                });
+                            });
+                        </script>
+                        <!----//fea-video---->
+
+                        <!--/about-->
+                    </div>
+                </div>
+
+
+
+
+                <div id="gtco-blog" data-section="About">
+                    <div class="gtco-container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                                {dede:type typeid='1'}
+                                <h2 class="abh2">[field:typename/]</h2>
+                                <p>[field:description/]</p>
+                                {/dede:type}
+                            </div>
+                        </div>
+                    </div>
+                    <!--about start here-->
+                    <div class="about" id="about">
+                        <div class="container">
+                            <div class="about-main">
+                                <!--About us start here-->
+                                <div class="why-us">
+                                    <div class="container">
+
+                                        <div class="why-us-main">
+                                            <div class="col-md-6 why-us-left">
+                                                <h3>公司介绍</h3>
+                                                <p>
+                                                    {dede:sql sql="SELECT typename, content, typedir FROM dede_arctype where id=1"}
+
+                                                    [field:content function='cn_substr(@me,1200)'/]...
+
+                                                    {/dede:sql}
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6 why-us-right">
+                                                {dede:type typeid='1'}
+                                                <img class='col-md-12' style="margin-top: 2em" src="[field:typeimg/]" alt="">
+                                                {/dede:type}
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="about-bottom">
+                                    {dede:arclist titlelen='60' addfields="body" channelid="1" infolen='1000' row='3' typeid="1"}
+                                    <div class="col-md-4 about-grid">
+                                        <img src="[field:litpic /] " alt="[field:title /] " class="img-responsive">
+                                        <p>[field:body/]</p>
+                                    </div>
+                                    {/dede:arclist}
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--about end here-->
+                </div>
+                <div class="gtco-section-overflow">
+                    <div id="gtco-products" data-section="News">
+                        <div class="gtco-container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                                    {dede:type typeid="2" }
+                                    <h2><a style="color: #0b0b0b" href="[field:typelink /]">[field:typename/]</a></h2>
+                                    <p>[field:description/]</p>
+                                    {/dede:type}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="owl-carousel owl-carousel-carousel">
+                                    {dede:arclist titlelen='60' infolen='160' row='8' typeid='2'}
+                                    <div class="item">
+                                        <a href="[field:arcurl /]"><img src="[field:litpic /]" alt="new"></a>
+                                    </div>
+                                    {/dede:arclist}
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center animate-box mg">
+                    {dede:type typeid="2" }
+                    <p><a href="[field:typelink /]" class="btn btn-primary with-arrow">查看更多<i class="icon-arrow-right"></i></a></p>
+                    {/dede:type}
+                </div>
+                <div id="gtco-subscribe" data-section="Contact">
+                    <div class="gtco-container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                                {dede:type typeid="11"}
+                                <h2>[field:typename/]</h2>
+                                <p>[field:description/]</p>
+                                {/dede:type}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-inline" action="/plus/contact.php" method="post">
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="email" class="sr-only">Email</label>
+                                            <input type="email" required class="form-control" name="email" id="email" placeholder="邮箱">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="name" class="sr-only">Name</label>
+                                            <input type="text" class="form-control" required name="name" id="name" placeholder="名字">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <input type="hidden" name="act" value="submit">
+                                        <button type="submit" class="btn btn-danger btn-block">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {dede:include filename="footer.htm"/}
+            </div>
+            <div class="gototop js-top">
+                <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+            </div>
+
+            <!-- jQuery -->
+            <script src="{dede:global.cfg_templets_skin/}/js/jquery.min.js"></script>
+            <!-- jQuery Easing -->
+            <script src="{dede:global.cfg_templets_skin/}/js/jquery.easing.1.3.js"></script>
+            <!-- Bootstrap -->
+            <script src="{dede:global.cfg_templets_skin/}/js/bootstrap.min.js"></script>
+            <!-- Waypoints -->
+            <script src="{dede:global.cfg_templets_skin/}/js/jquery.waypoints.min.js"></script>
+            <!-- Carousel -->
+            <script src="{dede:global.cfg_templets_skin/}/js/owl.carousel.min.js"></script>
+            <!-- countTo -->
+            <script src="{dede:global.cfg_templets_skin/}/js/jquery.countTo.js"></script>
+            <!-- Flexslider -->
+            <script src="{dede:global.cfg_templets_skin/}/js/jquery.flexslider-min.js"></script>
+            <!-- Magnific Popup -->
+            <script src="{dede:global.cfg_templets_skin/}/js/jquery.magnific-popup.min.js"></script>
+            <script src="{dede:global.cfg_templets_skin/}/js/magnific-popup-options.js"></script>
+            <!-- Main -->
+            <script src="{dede:global.cfg_templets_skin/}/js/main.js"></script>
+
+
+            <!--特卖开始  -->
+
+            <script src="{dede:global.cfg_templets_skin/}/js/responsiveslides.min.js"></script>
+            <script>
+                $(function () {
+                    $("#slider").responsiveSlides({
+                        auto: true,
+                        speed: 800,
+                        namespace: "callbacks",
+                        pager: false,
+                        nav:true,
+                    });
+                });
+            </script>
+            <!--特卖结束-->
+</body>
+</html>
+

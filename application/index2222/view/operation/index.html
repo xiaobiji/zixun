@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script> 
+</head>
+<body>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/cpbanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		<span class="select">战略合作</span>
+		<span>产业加盟</span>          
+		<div class="curadress"><a href="/">首页</a> > <a href="{:url('index/operation/index')}">合作加盟</a> > 战略合作</div>
+	</div>
+</div>
+<div class="container opertationbox">
+	<div class="zlhebox opertbox opt0">
+		<h2>公司致力于打造Bolt PC螺栓连接装配式建筑全产业链技术体系和产学研基地，为以加盟合作模式的快速复制、推广提供基础条件和支撑。</h2>
+		<ul>
+			<li>
+				<div class="leftimg">
+					<img src="/public/static/index/images/hz01.png"/>
+				</div>
+				<div class="righttext">
+					<b>上海途远美宅置业顾问有限公司</b>致力于“重塑乡村经济结构”和“改善乡村旅游住宿生态”，以Bolt PC装配式建筑产品为依托，实现技术研发、房屋设计、生产、销售以及旅居消费运营等资源的整合。
+				</div>
+			</li>
+			<li>
+				<div class="leftimg">
+					<img src="/public/static/index/images/hz02.png"/>
+				</div>
+				<div class="righttext">
+					<b>浙江巴雷电子商务有限公司</b>运用建筑装饰行业国际领先的美国Autodesk BIM技术，对大数据进行资源整合，为客户提供集设计、采购、造价、施工、运维一体化的解决方案，彻底解决家装工装各种疑难科目。
+				</div>
+			</li>
+			<li>
+				<div class="leftimg">
+					<img src="/public/static/index/images/hz03.png"/>
+				</div>
+				<div class="righttext">
+					<b>汉能移动能源控股集团</b>是全球化的清洁能源跨国公司，全球薄膜太阳能发电领导者，致力于“用薄膜太阳能改变世界”。
+				</div>
+			</li>
+		</ul>
+		<p>目前已在全国<b>18省市</b>地区开展了业务合作，有<b>河北巨鹿、邢台、秦皇岛，新疆，江苏常州、张家港，海南琼海、儋州、琼中，四川峨眉山，贵州贵阳、福建、河南兰考、固始西九华，重庆，云南昆明，湖南长沙，甘肃天水、张掖</b>等地的项目合作正在进行中。此外，还有菲律宾马尼拉、韩国等国际合作。</p>
+		<p><img src="/public/static/index/images/map.png"/></p>
+	</div>
+	<div class="joinin opertbox opt1">
+		<h2>Bolt PC建筑产业加盟合作模式</h2>
+		<p>联合创办装配式建筑产业中心工厂、卫星工厂等分布式产业基地，寻求利用各自优势投入场地、设备、人力和当地资源等，共同打造全产业链Bolt PC绿色建筑新业态。</p>
+		<p>1、单一技术授权模式</p>
+		<p>2、技术授权+产品收益提成</p>
+		<p>3、技术授权+股权投资模式</p>
+		<h2>Bolt PC建筑产业加盟合伙人条件</h2>
+		<p>1、理念认同一致</p>
+		<p>2、具备一定的市场能力</p>
+		<p>3、良好的政府关系</p>
+		<p>4、具有投资能力</p>
+		<p>5、接受统一的市场价格和管理</p>
+		<p>6、遵循统一的产品技术标准和产品标准</p>
+		<p>7、对产品质量负责，并承担相应责任</p>
+		<div class="btepx">
+			<div class="lefttp">
+				<img src="/public/static/index/images/img15.jpg"/>
+				<p>中心工厂</p>
+			</div>
+			<div class="rttext">
+				<h3>全构件生产</h3>
+				<p>场地20000m2,厂房6000~8000m2 <br/>
+					产能<em>10万</em>建筑平米，建设周期<em>4个月</em><br/>
+					服务半径：<em>300-500</em>公里</p>
+			</div>
+		</div>
+		<div class="btepx right">
+			<div class="lefttp">
+				<img src="/public/static/index/images/img16.jpg"/>
+				<p>卫星工厂</p>
+			</div>
+			<div class="rttext">
+				<h3>高频次构件生产</h3>
+				<p>场地10000m2,厂房4000m2<br/> 
+					产能<em>4-5</em>万建筑平米，建设周期<em>4个月</em><br/>
+					服务半径：<em>50-100</em>公里</p>
+			</div>
+		</div>
+	</div>
+</div>
+{include file='common/footer'}
+<script type="text/javascript">
+//切换
+var navspan=$(".changetitlenr span");
+navspan.each(function(i){
+    $(this).click(function(){
+        $(".changetitlenr span").removeClass("select"); 
+        $(this).addClass("select");
+        $(".opertationbox .opertbox ").hide();
+        $(".opertationbox").find(".opt"+i).show();
+    })
+})
+</script>
+</body>
+</html>

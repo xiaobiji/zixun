@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}_公司介绍</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script> 
+</head>
+<body>
+<div class="iconbox">
+	<a class="xf_kuai gotop">
+		<em><img src="/public/static/index/images/xf_backtop.png"></em>
+		<span>回顶部</span>
+	</a>
+</div>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/jjbanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		<span class="select">公司介绍</span>
+		<span>服务面向</span>
+		<span>经营方式</span>
+		<div class="curadress"><a>首页</a> > 公司介绍</div>
+	</div>
+</div>
+<div class="comprofilebox">
+	<div class="comfbone" id="comfb0">
+		<h2>公司介绍 <em>/</em> <b>COMPANY PROFILE</b></h2>
+		<div class="jsbox">
+			<div class="left">
+				{$info.content}
+		     	<h4>{$info.desc}</h4>
+			</div>
+			<div class="right">
+				<img src="/public/static/index/images/img17.jpg"/>
+			</div>
+		</div>
+	</div>
+	<div class="comfbtwo" id="comfb1">
+		<div class="comfbtwonr">
+			<h2>服务面向/ <b>SERVICE ORIENTED</b></h2>
+			<p>公司致力于在低矮层装配式建筑领域，开展持续不断的技术研发与投入，实现持续、快速的迭代。将低能耗装配式建筑应用到广大的农村和民生、旅游领域，让绿色、低成本的舒适生活方式惠及千百万人。</p>
+			<h4>“七星缘”与五个服务对象的“有缘相会”</h4>
+			<div class="fwbox">
+				<div class="left">
+					<ul>
+						<li>
+							<div class="ptbox">
+								<img src="/public/static/index/images/pt1.png"/>
+							</div>
+							<div class="msbox">
+								村镇宜居建筑（新农村建设）
+							</div>
+						</li>
+						<li>
+							<div class="ptbox">
+								<img src="/public/static/index/images/pt2.png"/>
+							</div>
+							<div class="msbox">
+								医疗养老房地产
+							</div>
+						</li>
+						<li>
+							<div class="ptbox">
+								<img src="/public/static/index/images/pt3.png"/>
+							</div>
+							<div class="msbox linesp">
+								旅游度假房地产、家庭旅馆、<br/>低层、低密度酒店等
+							</div>
+						</li>
+						<li>
+							<div class="ptbox">
+								<img src="/public/static/index/images/pt4.png"/>
+							</div>
+							<div class="msbox">
+								城郊别墅、景观别墅（新中式合院）
+							</div>
+						</li>
+						<li>
+							<div class="ptbox">
+								<img src="/public/static/index/images/pt5.png"/>
+							</div>
+							<div class="msbox">
+								个人自建房、安置房等
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="right">
+					<img src="/public/static/index/images/xgpt.jpg"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="comfbthree" id="comfb2">
+		<h2>经营方式 <em>/</em><b>BUSINESS PRACTICE</b></h2>
+		<p>一键式新零售</p>
+		<img src="/public/static/index/images/pt6.png"/>
+	</div>
+</div>
+{include file='common/footer'}
+<script type="text/javascript">
+//点击项目导航滚动效果
+var nava = $(".changetitlenr span");
+nava.each(function (i) {
+	$(this).click(function () {
+		$('html,body').animate({scrollTop:$("#comfb" + (i)).offset().top}, 300);
+		$(".changetitlenr span").removeClass("select");
+		$(this).addClass("select");
+	})
+});
+//返回顶部
+$(".gotop").click(function(){
+	$("html, body").animate({
+		scrollTop: 0
+	}, 400);
+});
+</script>
+</body>
+</html>

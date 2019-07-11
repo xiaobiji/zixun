@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$Think.lang.showcontent}</title>
+    <link rel="stylesheet" href="/public/static/admin/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="/public/static/admin/custom/css/style.css">
+    <style>
+        .layui-form-select dl{z-index: 2;}
+        #thumb_list{padding-top: 8px;}
+        #thumb_list img{border: 1px solid #DDD;padding: 3px;border-radius: 5px;}
+        #thumb_list span{position: relative;display: inline-block;margin-right: 5px;}
+        #thumb_list span .delimg{position: absolute;right:3px;top:3px;}
+    </style>
+</head>
+<body style="padding:10px 10px;margin-bottom: 50px;">
+<div class="layui-container">
+
+    <table class="layui-table" lay-size="md">
+        <colgroup>
+            <col width="100">
+            <col width="270">
+            <col width="270">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="70">
+        </colgroup>
+        <thead>
+        <tr style="height: 45px" pid="0">
+            <th>{$Think.lang.questioner}</th>
+            <th>{$Think.lang.question}</th>
+            <th>{$Think.lang.remarks}</th>
+            <th>{$Think.lang.addtime}</th>
+            <th>{$Think.lang.reply_num}</th>
+            <th>{$Think.lang.is_reply}</th>
+            <th>{$Think.lang.handle}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>{$show_data.questioner}</td>
+            <td>{$show_data.title}</td>
+            <td>{$show_data.remark}</td>
+            <td>{$show_data.add_time|date="Y/m/d H:i:s",###}</td>
+            <td>{$show_data.reply_num}</td>
+            <td>{if $show_data.is_reply}是{else}否{/if}</td>
+            <td>
+                <a href="{:url('questions/reply',['id'=>$show_data['qid']])}" class="layui-btn layui-btn-mini"><i class="layui-icon">&#xe642;</i>{$Think.lang.answer}</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+<!-- 评论回复 -->
+    <table class="layui-table" lay-size="md">
+        <colgroup>
+            <col width="100">
+            <col width="100">
+            <col width="500">
+            <col width="200">
+            <col width="70">
+            <col width="100">
+            <col width="220">
+        </colgroup>
+        <thead>
+        <tr style="height: 45px" pid="0">
+            <th>楼层</th>
+            <th>{$Think.lang.answerer}</th>
+            <th>{$Think.lang.contenttitle}</th>
+            <th>{$Think.lang.addtime}</th>
+            <th>{$Think.lang.reply_num}</th>
+            <th>{$Think.lang.is_reply}</th>
+            <th>{$Think.lang.handle}</th>
+        </tr>
+        </thead>
+        {volist name="comment" id="vo"}
+        <tr>
+            <td>第{$vo.id}楼</td>
+            <td>{$vo.answerer}</td>
+            <td>{$vo.content}</td>
+            <td>{$vo.create_time|date="Y/m/d H:i:s",###}</td>
+            <td>{$vo.reply_num}</td>
+            <td>{if $vo.is_reply}是{else}否{/if}</td>
+            <td>
+                <a href="{:url('questions/com_reply',['id'=>$vo['id']])}" class="layui-btn layui-btn-mini"><i class="layui-icon">&#xe642;</i>{$Think.lang.answer}</a>
+                <i class="layui-icon layui-icon-praise" id="praise-{$vo.id}" style="{if $vo.is_like}color:red;{/if}" onclick="like({$vo.id})">&#xe6c6;<span id="like_{$vo.id}">{$vo.like_num}</span></i>
+            </td>
+        </tr>
+
+        {if $vo.com_reply}
+        <table class="layui-table" lay-size="md">
+            <colgroup>
+                <col width="70">
+                <col width="200">
+                <col width="500">
+                <col width="70">
+                <col width="70">
+                <col width="150">
+            </colgroup>
+            <thead>
+                <tr style="height: 45px" pid="0">
+                    <th></th>
+                    <th>{$Think.lang.answerer}</th>
+                    <th>{$Think.lang.contenttitle}</th>
+                    <th>{$Think.lang.addtime}</th>
+                    <th>{$Think.lang.reply_num}</th>
+                    <th>{$Think.lang.handle}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name='vo.com_reply' id="co" }
+                <tr>
+                    <td>第{$co.id}楼</td>
+                    <td>{$co.from_user}回复{$co.to_user}</td>
+                    <td>{$co.content}</td>
+                    <td>{$co.create_time|date="Y/m/d H:i:s",###}</td>
+                    <td>{$co.reply_num}</td>
+                    <td>
+                        <a href="{:url('questions/com_reply',['reply_id'=>$co['id']])}" class="layui-btn layui-btn-mini"><i class="layui-icon">&#xe642;</i>{$Think.lang.answer}</a>
+                        <i class="layui-icon layui-icon-praise" id="reply_praise-{$co.id}" style="{if $co.is_like}color:red;{/if}" onclick="reply_like({$co.id})">&#xe6c6;<span id="reply_like_{$co.id}">{$co.like_num}</span></i>
+                    </td>
+                </tr>
+                {if $co.reply_coments}
+                {$co.reply_coments}
+                {/if}
+                {/volist}
+            </tbody>
+        </table>
+        {/if}
+        {/volist}
+        </tbody>
+    </table>
+</div>
+
+</div>
+<script src="/public/static/admin/vendor/js/jquery.js"></script>
+<script src="/public/static/admin/vendor/layui/layui.js"></script>
+<script src="/public/static/admin/custom/js/admin.js"></script>
+
+<script  type="text/javascript">
+    function like($id) {
+        var id = $id;
+        $.ajax({
+            url:"http://www.huaqicrm.com/admin/questions/like",
+            data:{
+                'id':id
+            },
+            type:"POST",
+            dataType:"JSON",
+            success: function(data){
+                var data = data;
+                if(data.code==201){
+                    $("#like_"+id).html();
+                    $("#like_"+id).html(data.data.like_num);
+                    $("#praise-"+id).css("color","red");
+//                    alert(data.msg);
+                    return false;
+                }else{
+                    alert(data.msg);
+                    return false;
+                }
+            }
+        })
+    }
+
+    function reply_like($id) {
+        var id = $id;
+        $.ajax({
+            url:"http://www.huaqicrm.com/admin/questions/like",
+            data:{
+                'id':id,
+                'reply':'reply'
+            },
+            type:"POST",
+            dataType:"JSON",
+            success: function(data){
+                var data = data;
+                if(data.code==201){
+                    $("#reply_like_"+id).html();
+                    $("#reply_like_"+id).html(data.data.like_num);
+                    $("#reply_praise-"+id).css("color","red");
+//                    alert(data.msg);
+                    return false;
+                }else{
+                    alert(data.msg);
+                    return false;
+                }
+            }
+        })
+    }
+</script>
+
+
+</body>
+</html>

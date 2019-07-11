@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$Think.lang.logintitletype}{$Think.lang.logintitle}</title>
+    <link rel="stylesheet" href="__ADMIN__/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="__ADMIN__/custom/css/style.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo"><span class="layui-hide-xs">{$Think.lang.logintitletype}</span>{$Think.lang.logintitle}</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="javascript:;">
+                    <i class="layui-icon" style="font-size: 1.2rem;">&#xe612;</i>
+                {$admin}
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/" target="_blank">
+                    网站首页
+                </a>
+            </li>
+
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="layui-icon" style="font-size: 1.2rem;">&#xe620;</i>
+                    {$Think.lang.topsetting}
+                </a>
+                <dl class="layui-nav-child" id="rightmenu">
+                    <dd><a href="{:url('config/index')}"  target="_content">{$Think.lang.websetting}</a></dd>
+                    <dd><a href="{:url('manager/setpass')}" target="_content">{$Think.lang.toppassword}</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="{:url('login/logout')}">{$Think.lang.topexit}</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon">&#xe705;</i> {$Think.lang.introduction}</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('introduction/index')}" target="_content"><i class="layui-icon">&#xe60a;</i> {$Think.lang.introduction_list}</a></dd>
+                        <dd><a href="{:url('introduction/add')}" target="_content"><i class="layui-icon">&#xe61f;</i> {$Think.lang.introduction_add}</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon">&#xe705;</i> {$Think.lang.questions}</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('questions/index')}" target="_content"><i class="layui-icon">&#xe60a;</i> {$Think.lang.questions_list}</a></dd>
+                        <dd><a href="{:url('questions/add')}" target="_content"><i class="layui-icon">&#xe61f;</i> {$Think.lang.questions_add}</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon">&#xe705;</i>监测头条商品销量</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('toutiao/index')}" target="_content"><i class="layui-icon">&#xe60a;</i>查询列表</a></dd>
+                        <dd><a href="{:url('toutiao/add')}" target="_content"><i class="layui-icon">&#xe61f;</i> 添加产品</a></dd>
+                    </dl>
+                </li>
+                <!--<li class="layui-nav-item">-->
+                    <!--<a class="" href="javascript:;"><i class="layui-icon">&#xe612;</i> {$Think.lang.manager}</a>-->
+                    <!--<dl class="layui-nav-child">-->
+                        <!--<dd><a href="{:url('manager/index')}" target="_content"><i class="layui-icon">&#xe60a;</i> {$Think.lang.managerlst}</a></dd>-->
+                        <!--<dd><a href="{:url('manager/add')}" target="_content"><i class="layui-icon">&#xe61f;</i> {$Think.lang.manageradd}</a></dd>-->
+                    <!--</dl>-->
+                <!--</li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" id="layui-body" style="overflow: hidden;">
+        <!-- 内容主体区域 -->
+        <div class="title ly-right-title"><span class="actived"><i class="layui-icon">&#xe68e;</i> <span id="righttitle">{$Think.lang.baseinfo}</span></span></div>
+        <iframe id="_content" name="_content" src="{:url('index/system')}" scrolling="yes" frameborder="no" width="100%" height="100%"></iframe>
+    </div>
+
+    <!--<div class="layui-footer">-->
+        <!--&lt;!&ndash; 底部固定区域 &ndash;&gt;-->
+        <!---->
+    <!--</div>-->
+</div>
+<script src="__ADMIN__/vendor/js/jquery.js"></script>
+<script src="__ADMIN__/vendor/layui/layui.js"></script>
+<script src="__ADMIN__/custom/js/admin.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+    $(function(){
+        $('#rightmenu').hover(function(){
+
+        },function(){
+            $(this).slideUp().parent().removeClass('layui-nav-itemed');
+            $('.layui-nav-more').removeClass('layui-nav-mored');
+        });
+    });
+
+</script>
+</body>
+</html>

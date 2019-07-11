@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>{$cateData.name}-{$config.title}</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="keywords" content="{$cateData.keyword}">
+	<meta name="description" content="{$cateData.desc}">
+<LINK rel="Bookmark" href="favicon.ico" >
+<LINK rel="Shortcut Icon" href="favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__INDEX__/staticRes/js/html5shiv.js"></script>
+<script type="text/javascript" src="__INDEX__/staticRes/js/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="__INDEX__/plugin/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="__INDEX__/plugin/Hui-iconfont/1.0.8/iconfont.min.css" />
+<link rel="stylesheet" type="text/css" href="__INDEX__/css/common.css" />
+<link rel="stylesheet" type="text/css" href="__INDEX__/plugin/pifu/pifu.css" />
+<!--[if lt IE 9]>
+<link href="__INDEX__/staticRes/lib/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } function showSide(){$('.navbar-nav').toggle();}</script>
+</head>
+<body>
+
+{include file='common/header'}
+
+<!--导航条-->
+<nav class="breadcrumb">
+    <div class="container">
+        <i class="Hui-iconfont">&#xe67f;</i><a href="/" class="c-primary">首页</a>
+		{volist name="position" id="vo"}
+		<span class="c-gray en">&gt;</span>
+		<a href="{:url('category/index',['id'=>$vo['id']])}" class="c-primary">{$vo.name}</a>
+		{/volist}
+    </div>
+</nav>
+
+<section class="container">
+  <!--left-->
+  <div class="col-sm-9 col-md-9 mt-20">
+  	
+  		
+  	<!--article list-->
+			<ul class="index_arc">
+
+				{volist name='articles' id='vo'}
+				<li class="index_arc_item  {if empty($vo.thumb)}no_pic{/if}">
+					{if !empty($vo.thumb)}
+					<a href="{:url('article/index',['id'=>$vo['id']])}" class="pic">
+						<img class="lazyload" data-original="{$vo.thumb}" alt="应该选" />
+					</a>
+					{/if}
+					<h4 class="title"><a href="{:url('article/index',['id'=>$vo['id']])}">{$vo.title}</a></h4>
+					<div class="date_hits">
+						<span>{$vo.author}</span>
+						<span>{$vo.addtime}</span>
+						<span><a href="{:url('article/index',['id'=>$vo['id']])}">{$vo.title}</a></span>
+						<p class="hits"><i class="Hui-iconfont" title="点击量">&#xe6c1;</i> {$vo.click_num}° </p>
+						<p class="commonts"><i class="Hui-iconfont" title="点击量">&#xe622;</i> <span class="cy_cmt_count">{$vo.cmt_count}</span></p>
+					</div>
+					<div class="desc">{$vo.desc}</div>
+				</li>
+				{/volist}
+          
+				</ul>
+	  	{$articles->render()}
+  		<!--<div class="text-c mb-20" id="moreBlog">-->
+            <!--<a class="btn  radius btn-block " href="javascript:;" onclick="moreBlog('${blogType.id}','${tag.name}');">点击加载更多</a>-->
+            <!--<a class="btn  radius btn-block hidden" href="javascript:;">加载中……</a>-->
+        <!--</div>		-->
+  </div>
+  
+  <!--right-->
+	{include file='common/right'}
+	<!--right end-->
+  
+</section>
+<footer class="footer mt-20">
+    <div class="container-fluid" id="foot">
+        <p>Copyright &copy; 2016-2017 www.wfyvv.com <br>
+            <a href="#" target="_blank">皖ICP备17002922号</a>  更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a><br>
+        </p>
+    </div>
+</footer>
+<script type="text/javascript" src="__INDEX__/plugin/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/layer/3.0/layer.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/pifu/pifu.js"></script>
+<script type="text/javascript" src="__INDEX__/js/common.js"></script>
+<script> $(function(){ $(window).on("scroll",backToTopFun); backToTopFun(); }); </script>
+<script>
+$(function(){
+//标签
+	$(".tags a").each(function(){
+		var x = 9;
+		var y = 0;
+		var rand = parseInt(Math.random() * (x - y + 1) + y);
+		$(this).addClass("tags"+rand)
+	});
+	
+	$("img.lazyload").lazyload({failurelimit : 3});
+});
+
+</script> 
+</body>
+</html>

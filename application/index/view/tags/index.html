@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>标签列表</title>
+    <link rel="stylesheet" href="__ADMIN__/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="__ADMIN__/custom/css/style.css">
+</head>
+<body style="padding:10px 10px;">
+<form action="" class="layui-form">
+    <table class="layui-table" lay-size="sm">
+        <colgroup>
+            <col width="80">
+            <col>
+            <col width="100">
+            <col width="150">
+        </colgroup>
+        <thead>
+        <tr>
+            <th style="text-align: center;">ID</th>
+            <th>名称</th>
+            <th>排序</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data" id="vo"}
+        <tr>
+            <td style="text-align: center;">{$vo.id}</td>
+            <td>{$vo.tname}</td>
+            <td><input type="text" name="sort" value="{$vo.sort}" required lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input sort" data="{$vo.id}"></td>
+            <td><a href="{:url('tags/edit',['id'=>$vo['id']])}" class="layui-btn layui-btn-warm layui-btn-mini">编辑</a>
+                <a href="{:url('tags/del',['id'=>$vo.id])}" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a></td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</form>
+<script src="/public/static/admin/vendor/js/jquery.js"></script>
+<script src="/public/static/admin/vendor/layui/layui.js"></script>
+<script src="/public/static/admin/custom/js/admin.js"></script>
+<script>
+    layui.use(['layer','form'], function(){
+        var layer = layui.layer;
+        var form  = layui.form;
+        $('.del').on('click',function () {
+            var url=$(this).attr('href');
+            layer.confirm('确定要删除该标签吗?', {icon: 3, title:'温馨提示'}, function(index){
+                //do something
+                location.href=url;
+                layer.close(index);
+            });
+            return false;
+        });
+        //排序
+        $('.sort').change(function () {
+            var id=$(this).attr('data');
+            var value=$(this).val();
+            $.ajax({
+                type:"post",
+                url:"{:url('admin/tags/setajax')}",
+                data:{'act':'sort','v':value,'id':id},
+                success:function (msg) {
+                    if(msg==1){
+                        layer.msg("操作成功",{time:1000},function () {
+                            location.reload();
+                        })
+                    }
+                }
+            })
+        })
+    });
+    $(function(){
+        $(window.parent.document).find('#righttitle').text($('title').text());
+    });
+</script>
+</body>
+</html>

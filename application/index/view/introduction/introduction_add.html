@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$Think.lang.introduction_add}</title>
+    <link rel="stylesheet" href="/public/static/admin/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="/public/static/admin/custom/css/style.css">
+    <style>
+        .layui-form-select dl{z-index: 2;}
+        #thumb_list{padding-top: 8px;}
+        #thumb_list img{border: 1px solid #DDD;padding: 3px;border-radius: 5px;}
+        #thumb_list span{position: relative;display: inline-block;margin-right: 5px;}
+        #thumb_list span .delimg{position: absolute;right:3px;top:3px;}
+    </style>
+</head>
+<body style="padding:10px 10px;margin-bottom: 50px;">
+<div class="layui-container">
+    <form class="layui-form" action="?" method="post">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.title}</label>
+            <div class="layui-input-block">
+                <input type="text" name="iname" placeholder="{$Think.lang.titletip}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.addtime}</label>
+            <div class="layui-input-inline">
+                <input type="text" name="add_time" value="<?php echo date('Y/m/d H:i:s',time())?>" required  lay-verify="required" placeholder="{$Think.lang.addtimetip}"  disabled="true" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.thum}</label>
+            <div class="layui-input-block">
+                <input type="hidden" name="ifile"  placeholder="{$Think.lang.thumtip}" lay-type="file"  autocomplete="off" class="layui-input">
+                <button type="button" class="layui-btn" id="uploadimg">
+                    <i class="layui-icon">&#xe67c;</i>{$Think.lang.thumtip}
+                </button>
+                <div id="thumb_list">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.contenttitle}</label>
+            <div class="layui-input-block">
+                <div id="content" name="content" type="text/plain" style="height:300px;"></div>
+            </div>
+        </div>
+        <input type="hidden" name="__token__" value="{$Request.token}" />
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">{$Think.lang.addbtn}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/public/static/admin/vendor/js/jquery.js"></script>
+<script src="/public/static/admin/vendor/layui/layui.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/public/static/admin/vendor/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/public/static/admin/vendor/ueditor/ueditor.all.js"></script>
+<script src="/public/static/admin/custom/js/admin.js"></script>
+<script>
+    var ue = UE.getEditor('content',{
+        initialFrameWidth:null,
+    });
+    layui.use(['form','upload'], function(){
+        var form = layui.form;
+        var upload = layui.upload;
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+        });
+
+        //重写验证规则
+        form.verify({
+            required:function (value) {
+                if(value=="" || value.trim().length()==0){
+                    return "{:lang('Required cannot be empty')}";
+                }
+            }
+        });
+        //创建一个上传组件
+        upload.render({
+            elem: '#uploadimg'
+            ,url: '{:url("common/uploadimg")}'
+            ,accept: 'file' //允许上传的文件类型
+            ,field:"imgfile"
+            ,size: 20480 //最大允许上传的文件大小
+            ,done: function(res, index, upload){ //上传后的回调
+                layer.close(layer.index,{isOutAnim:true});
+                setTimeout(function () {
+                    layer.msg(res.msg);
+                    var sub = res.img.substring(res.img.length,res.img.lastIndexOf('.'));
+                    if(res.code==1){
+                        var pic=$('input[name=ifile]').val();
+                        if(pic==""){
+                            $('input[name=ifile]').val(res.img);
+                        }else{
+                            $('input[name=ifile]').val(pic+","+res.img);
+                        }
+                        var str;
+                        str="<span>";
+                        if(sub === '.png' || sub === '.jpeg' || sub === '.gif' || sub === '.jpg' || sub === '.png'){
+                            str=str+'<img src="/public/'+res.img+'" alt="" height="80">';
+                        }else{
+                            str=str+'<spen>'+res.img+'</spen>';
+                        }
+                        str=str+'<button type="button" class="layui-btn layui-btn-danger layui-btn-mini delimg" onclick="delimg(this);" data="'+res.img+'">';
+                        str=str+'<i class="layui-icon">&#xe640;</i>';
+                        str=str+'</button>';
+                        str=str+'</span>';
+                        $('#thumb_list').append(str);
+                    }else{
+
+                    }
+
+                },500);
+            }
+            ,before:function () {
+                var index = layer.load();
+            }
+
+            //,……
+        })
+    });
+    $(function(){
+        $(window.parent.document).find('#righttitle').text($('title').text());
+    });
+    //删除栏目图片
+    function delimg(obj) {
+        var picurl=$(obj).attr('data');
+        $.ajax({
+            type:"post",
+            url:"{:url('common/delimg')}",
+            data:{'url':picurl},
+            success:function (res) {
+                var picvalue=$('input[name=ifile]').val();
+                var str="";
+                if(res.code==1 || res.code==2){
+                    //栏目图片文本框中图片地址处理
+                    if(picvalue==picurl){
+                        $('input[name=pic]').val('');
+                    }else{
+                        str=picvalue.replace(picurl+",","");
+                        str=str.replace(","+picurl,"");
+                        $('input[name=ifile]').val(str);
+                    }
+                    //删除/移除缩略图
+                    $(obj).parent().remove();
+                    layer.msg(res.msg);
+                }
+                if(res.code==0){
+                    layer.msg(res.msg);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

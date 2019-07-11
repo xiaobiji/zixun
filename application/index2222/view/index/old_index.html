@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/index.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script> 
+</head>
+<body>
+{include file='common/header'}
+{include file="common/menu"}
+<div class="banner">
+	<div class="callbacks_container">
+        <ul class="rslides" id="slider">
+			{volist name="banner" id="vo"}
+            <li><a href="{$vo.url}"><img src="/public/{$vo.pic}"/></a></li>
+			{/volist}
+        </ul>
+    </div>
+</div>
+<div class="indexbox">
+	<div class="titlendex">
+		<h3>产品服务</h3>
+		<p>PRODUCT SERVICE</p>
+	</div>
+	<ul class="productbox">
+		{volist name="zuopin" id="vo" key="k"}
+		<li>
+			<img src="/public/{$vo.pic}"/>
+			<div class="text">
+				<h3>{$vo.title}</h3>
+				<p>{$vo.desc}</p>
+				<a class="morebtn"></a>
+			</div>
+		</li>
+		{/volist}
+	</ul>
+	<div class="titlendex">
+		<h3>新闻政策</h3>
+		<p>NEWS CENTER</p>
+	</div>
+	<div class="newsboxli">
+		<p class="newscat">
+			{volist name='news_after_name' id='vo'}
+			{if condition="($i == 1)"}
+				<span class="select select_1">{$vo.name}</span>
+			{else /}
+				<span class="select_2">{$vo.name}</span></p>
+			{/if}
+			{/volist}
+		<div id="tabs_container">
+			{notempty name='news_one_info'}
+			<div id="tabs-1">
+				<div class="middelebox">
+					{volist name='news_one_info' id='vo' offset='0' length='1'}
+					<div class="left">
+						<div class="imgbox">
+							<div class="time">
+								<h2>{:substr((date('Y-m-d',$vo.addtime)),-1)}</h2>
+								<p>{:substr((date('Y.m.d',$vo.addtime)),0,7)}</p>
+							</div>
+							<img src="/public/{$vo.pic}" style="width: 100%;height: 100%" />
+						</div>
+						<div class="textli">
+							<h4>{$vo.title}</h4>
+							<p>{$vo.desc}</p>
+							<a href="{:url('index/news/detail',['id'=>$vo.id])}" class="linkdet"></a>
+						</div>
+					</div>
+					{/volist}
+					<ul class="right">
+						{volist name="news_one_info" id='vo' offset='0' length='3'}
+						<li>
+							<a href="{:url('index/news/detail',['id'=>$vo.id])}">
+								<div class="time">
+									<h2>{:substr((date('Y-m-d',$vo.addtime)),-1)}</h2>
+									<p>{:substr((date('Y.m.d',$vo.addtime)),0,7)}</p>
+								</div>
+								<div class="note">
+									<h4>{$vo.title}</h4>
+									<p>{$vo.desc}</p>
+								</div>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			{/notempty}
+			{notempty name='news_two_info'}
+			<div id="tabs-2" style="display: none">
+				<div class="middelebox">
+
+					{volist name='news_two_info' id='vo' offset='0' length='1'}
+					<div class="left">
+						<div class="imgbox">
+							<div class="time">
+								<h2>{:substr((date('Y-m-d',$vo.addtime)),-1)}</h2>
+								<p>{:substr((date('Y.m.d',$vo.addtime)),0,7)}</p>
+							</div>
+							<img src="/public/{$vo.pic}"  style="width: 100%;height: 100%"/>
+						</div>
+						<div class="textli">
+							<h4>{$vo.title}</h4>
+							<p>{$vo.desc}</p>
+							<a href="{:url('index/news/detail',['id'=>$vo.id])}" class="linkdet"></a>
+						</div>
+					</div>
+					{/volist}
+					<ul class="right">
+						{volist name="news_two_info" id='vo' offset='0' length='3'}
+						<li>
+							<a href="{:url('index/news/detail',['id'=>$vo.id])}">
+								<div class="time">
+									<h2>{:substr((date('Y-m-d',$vo.addtime)),-1)}</h2>
+									<p>{:substr((date('Y.m.d',$vo.addtime)),0,7)}</p>
+								</div>
+								<div class="note">
+									<h4>{$vo.title}</h4>
+									<p>{$vo.desc}</p>
+								</div>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			{/notempty}
+		</div>
+		<a class="morenews" href="{:url('index/news/index')}">查看更多...</a>
+	</div>
+	<div class="titlendex">
+		<h3>建设项目</h3>
+		<p>PROJECT CASE</p>
+	</div>
+	<ul class="caseboxli">
+		{volist name='case' id='vo' offset='0' length='4'}
+		<li>
+			<a href="{:url('index/cases/detail',['id'=>$vo.id])}">
+				<div class="imgli">
+					<img src="/public/{$vo.pic}" />
+				</div>
+				<h4>{$vo.title}</h4>
+				<p>{$vo.desc}</p>
+			</a>
+		</li>
+		{/volist}
+	</ul>
+	<div class="titlendex">
+		<h3>合作加盟</h3>
+		<p>JOIN IN COOPERATION</p>
+	</div>
+	<div class="joinboxli">
+		<div class="joinboxleft">
+			<h4>合 作</h4>
+			<a href="{:url('index/operation/index')}">查看更多...</a>
+		</div>
+		<div class="joinboxcnt scrollbox">
+			<ul id="leftlist">
+				{volist name='huoban' id='vo' offset='0' length='4' key='k'}
+				{if condition="($k%2) == 0"}
+				<li>
+					<img src="/public/{$vo.pic}"/>
+					<div class="mbbox">
+						<h2>{$vo.title}</h2>
+						{$vo.content}
+					</div>
+				</li>
+				{else/}
+				<li>
+					<img src="/public/{$vo.pic}">
+				</li>
+				{/if}
+				{/volist}
+			</ul>
+		</div>
+		<div class="joinboxright">
+			<h4>加 盟</h4>
+			<a href="{:url('index/operation/index')}">查看更多...</a>
+		</div>
+	</div>
+	<div class="hzhbbox" style="margin-top: 90px">
+		<a class="left"><em></em></a>
+		<div id="four_flash">
+			<div class="imghzhb flashBg">
+				<ul>
+					<li>
+						<img src="/public/static/index/images/hzhb1.jpg"/>
+					</li>
+					<li>
+						<img src="/public/static/index/images/hzhb2.jpg"/>
+					</li>
+					<li>
+						<img src="/public/static/index/images/hzhb5.jpg"/>
+					</li>
+					<li>
+						<img src="/public/static/index/images/hzhb4.jpg"/>
+					</li>
+					<li>
+						<img src="/public/static/index/images/hzhb5.jpg"/>
+					</li>
+					<li>
+						<img src="/public/static/index/images/hzhb6.jpg"/>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<a class="right"><em></em></a>
+	</div>
+	<div class="btlinkboxli">
+		<ul>
+			<li>
+				<a href="{:url('index/comprofile/index')}">
+					<b></b>
+					<em class="ico1"></em>
+					<h4>公司介绍</h4>
+					<p>BPC装配式建筑</p>
+				</a>
+			</li>
+			<li>
+				<a href="{:url('index/education/index')}">
+					<b></b>
+					<em class="ico2"></em>
+					<h4>教育培训</h4>
+					<p>课程体系与教学内容管理</p>
+				</a>
+			</li>
+			<li>
+				<a href="{:url('index/technical/index')}">
+					<b></b>
+					<em class="ico3"></em>
+					<h4>技术标准</h4>
+					<p>标准化规模化的部件生产</p>
+				</a>
+			</li>
+			<li>
+				<a href="{:url('index/contactus/contact')}">
+					<em class="ico4"></em>
+					<h4>联系我们</h4>
+					<p>如果您有任何问题，联系我们</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+{include file='common/footer'}
+<script type="text/javascript">
+//新闻政策
+var curnew = $(".newscat span");
+curnew.each(function () {
+	$(this).click(function(){
+		$(".newscat span").removeClass("select");
+		$(this).addClass("select");
+		if($(this).hasClass('select_1')){
+			$('#tabs-1').show();
+			$('#tabs-2').hide();
+		}else{
+			$('#tabs-1').hide();
+			$('#tabs-2').show();
+		}
+	})
+})
+//产品服务效果
+var nava = $(".productbox li .text .morebtn");
+nava.each(function (i) {
+	var _flag=true;
+	$(this).click(function () {
+		if(_flag){
+			$(this).parent().addClass("active");
+			$(this).parent().animate({
+			    top:'0',
+			    height:'256px',
+			    width:'310px',
+			    padding:'0 30px'
+		  	});
+			_flag=false;
+		}
+		else{
+			$(this).parent().removeClass("active");
+			$(this).parent().animate({
+			    top:'115px',
+			    height:'122px',
+			    width:'272px',
+			    padding:'0 15px'
+		  	});
+			_flag=true;	
+		}
+		
+	})
+});
+//合作伙伴滑动
+var _index5=0;
+$(".hzhbbox .right").click(function(){
+	_index5++;
+	var len=$(".flashBg ul li").length;
+	if(_index5+7>len){
+		$("#four_flash .flashBg ul").stop().append($(".flashBg ul").html());
+	}
+	$("#four_flash .flashBg ul").stop().animate({left:-_index5*178},500);
+	});
+$(".hzhbbox .left").click(function(){
+	if(_index5==0){
+		$(".flashBg ul").prepend($("ul").html());
+		$(".flashBg ul").css("left","-1380px");
+		_index5=8
+	}
+	_index5--;
+	$("#four_flash .flashBg ul").stop().animate({left:-_index5*178},500);
+	});
+</script>
+<!--引入合作加盟样式 -->
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.1.4.2-min.js"></script> 
+<script type="text/javascript" src="/public/static/index/js/jquery.rollGallery_yeso.js"></script>
+<script type="text/javascript">
+$("#leftlist").rollGallery({
+	direction:"left",
+	speed:2000,
+	showNum:2,
+	rollNum:1,
+	aniMethod:"easeOutCirc"
+});
+</script>
+<!-- banner图效果 -->
+<script type="text/javascript" src="/public/static/index/js/responsiveslides.min.js"></script>
+<script type="text/javascript">
+$(function () {
+$("#slider").responsiveSlides({
+    auto: true,
+    pager: false,
+    nav: true,
+    speed: 500,
+    timeout:4000,
+    pager: true, 
+    pauseControls: true,
+    namespace: "callbacks"
+});
+});
+</script>
+</body>
+</html>

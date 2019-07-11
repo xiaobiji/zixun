@@ -1,0 +1,12 @@
+<div class="header">
+    <div class="headernr">
+        <a class="gwcbtn">我的购物车</a>
+        <h2><a><img src="/public/static/index/images/logo.png"/></a></h2>
+        <ul>
+            <li {eq name="currtype" value="0"}class="select"{/eq}><a href="{:url('/')}">网站首页</a><b></b></li>
+            {volist name="cate" id="vo"}
+            <li {eq name="currtype" value="$vo.stype"}class="select"{/eq}><a href="{$vo.url}">{$vo.name}</a><b></b></li>
+            {/volist}
+        </ul>
+    </div>
+</div>

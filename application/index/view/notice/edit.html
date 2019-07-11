@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>编辑公告</title>
+    <link rel="stylesheet" href="/public/static/admin/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="/public/static/admin/custom/css/style.css">
+    <script src="/public/static/admin/My97DatePicker/WdatePicker.js"></script>
+
+    <style>
+        .layui-form-select dl{z-index: 2;}
+        #thumb_list{padding-top: 8px;}
+        #thumb_list img{border: 1px solid #DDD;padding: 3px;border-radius: 5px;}
+        #thumb_list span{position: relative;display: inline-block;margin-right: 5px;}
+        #thumb_list span .delimg{position: absolute;right:3px;top:3px;}
+    </style>
+</head>
+<body style="padding:10px 10px;">
+<div class="layui-container">
+    <form class="layui-form" action="?" method="post" enctype="multipart/form-data">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" value="{$editData.title}" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">过期时间</label>
+            <div class="layui-input-block">
+                <input id="d421" class="layui-input" required  value="{$editData.show_time}" lay-verify="required" name="show_time" class="Wdate" type="text" autocomplete="off" placeholder="请选择过期时间" onfocus="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,minDate:'%y-%M-%d',firstDayOfWeek:1})">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否显示</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" name="is_show" lay-skin="switch" lay-text="显示|隐藏" value="1" {$editData.is_show?"checked":""}>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sort" value="{$editData.sort}" required  lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/public/static/admin/vendor/js/jquery.js"></script>
+<script src="/public/static/admin/vendor/layui/layui.js"></script>
+<script src="/public/static/admin/custom/js/admin.js"></script>
+
+
+<!-- 配置文件 -->
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/public/static/admin/vendor/ueditor/ueditor.all.js"></script>
+
+<script>
+    layui.use(['form','element','upload'], function(){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+        });
+    });
+
+</script>
+</body>
+</html>

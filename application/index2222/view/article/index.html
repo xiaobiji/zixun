@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>{$articleData.title}-{$config.title}</title>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="keywords" content="{volist name='keyData' id='vo'}{$vo.tname}{/volist}">
+<meta name="description" content="{$articleData.desc}">
+<LINK rel="Bookmark" href="favicon.ico" >
+<LINK rel="Shortcut Icon" href="favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__INDEX__/staticRes/js/html5shiv.js"></script>
+<script type="text/javascript" src="__INDEX__/staticRes/js/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="__INDEX__/plugin/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="__INDEX__/plugin/Hui-iconfont/1.0.8/iconfont.min.css" />
+<link rel="stylesheet" type="text/css" href="__INDEX__/css/common.css" />
+<link rel="stylesheet" type="text/css" href="__INDEX__/plugin/pifu/pifu.css" />
+<link rel="stylesheet" type="text/css" href="__INDEX__/plugin/wangEditor/css/wangEditor.min.css">
+<!--[if lt IE 9]>
+<link href="__INDEX__/staticRes/lib/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } function showSide(){$('.navbar-nav').toggle();}</script>
+</head>
+<body>
+
+{include file='common/header'}
+
+<!--导航条-->
+<nav class="breadcrumb">
+  <div class="container">
+	  <i class="Hui-iconfont">&#xe67f;</i>
+	  <a href="/" class="c-primary">首页</a>
+	  {volist name="position" id="vo"}
+	  <span class="c-gray en">&gt;</span>
+	  <a href="{:url('category/index',['id'=>$vo['id']])}"><span class="c-gray">{$vo.name}</span></a>
+	  {/volist}
+	  <span class="c-gray en">&gt;</span>
+	  <span class="c-gray">{$articleData.title}</span></div>
+</nav>
+
+<section class="container pt-20">
+	
+	<div class="row w_main_row">
+				
+				
+				<div class="col-lg-9 col-md-9 w_main_left">
+					<div class="panel panel-default  mb-20">
+						<div class="panel-body pt-10 pb-10">
+							<h2 class="c_titile">{$articleData.title}</h2>
+							<p class="box_c"><span class="d_time">发布时间：{$articleData.addtime}</span><span>编辑：<a href="mailto:wfyv@qq.com">{$articleData.author}</a></span><span>阅读（{$articleData.click_num}）</span></p>
+							<ul class="infos">
+								{$articleData.content}
+							</ul>
+															
+							<div class="keybq">
+						    	<p><span>关键字</span>：
+									{volist name="keyData" id="vo"}
+									<a href="{:url('search/tags',['keywords'=>$vo['id']])}" class="label label-default">{$vo.tname}</a>
+									{/volist}
+						    </div>
+
+
+							<div class="nextinfo">
+								{if condition="$front"}
+									<p class="last">上一篇：<a href="{:url('article/index',['id'=>$front['id']])}">{$front['title']}</a></p>
+									{else/}
+									<p class="last">已经是第一篇</p>
+								{/if}
+
+								{if condition="$after"}
+									<p class="next">下一篇：<a href="{:url('article/index',['id'=>$after['id']])}">{$after['title']}</a></p>
+									{else/}
+									<p class="next">已经是最后一篇</p>
+								{/IF}
+						    </div>
+							
+						</div>
+					</div>
+					
+					<div class="panel panel-default  mb-20">
+						<div class="tab-category">
+                <a href=""><strong>评论区</strong>（{$articleData.click_num}）</a>
+            </div>
+						<div class="panel-body">
+							<div class="panel-body" style="margin: 0 3%;">
+                    <div class="mb-20">
+                    	<ul class="commentList">
+                            <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://qzapp.qlogo.cn/qzapp/101388738/1CF8425D24660DB8C3EBB76C03D95F35/100"></i></a>
+                                <div class="comment-main">
+                                    <header class="comment-header">
+                                        <div class="comment-meta"><a class="comment-author" href="#">老王</a>
+                                            <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20" class="f-r">2014-8-31 15:20</time>
+                                        </div>
+                                    </header>
+                                    <div class="comment-body">
+                                        <p> 是的</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://qzapp.qlogo.cn/qzapp/101388738/696C8A17B3383B88804BA92ECBAA5D81/100"></i></a>
+                                <div class="comment-main">
+                                    <header class="comment-header">
+                                        <div class="comment-meta"><a class="comment-author" href="#">老王</a>
+                                            <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20" class="f-r">2014-8-31 15:20</time>
+                                        </div>
+                                    </header>
+                                    <div class="comment-body">
+                                        <p> +1</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+    
+                    </div>
+                    <div class="line"></div>
+
+
+					<!--用于评论-->
+                    <div class="mt-20" id="ct">
+                        <div id="err" class="Huialert Huialert-danger hidden radius">成功状态提示</div>
+                        <textarea id="textarea1" name="comment" style="height:200px;" placeholder="看完不留一发？"> </textarea>
+                        <div class="text-r mt-10">
+                            <button onclick="getPlainTxt()" class="btn btn-primary radius" > 发表评论</button>
+                        </div>
+                    </div>
+                    <!--用于回复-->
+                    <div class="comment hidden mt-20">
+                        <div id="err2" class="Huialert Huialert-danger hidden radius">成功状态提示</div>
+                            <textarea class="textarea" style="height:100px;" > </textarea>
+                            <button onclick="hf(this);" type="button" class="btn btn-primary radius mt-10">回复</button>
+                            <a class="cancelReply f-r mt-10">取消回复</a>
+                    </div>
+
+                </div>
+						</div>
+					</div>
+				</div>
+
+
+		<!--right-->
+		{include file='common/right'}
+		<!--right end-->
+
+	</div>
+	
+</section>
+<footer class="footer mt-20">
+		<p>Copyright &copy;2017 wfyvv.com All Rights Reserved. <br>
+			<a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">皖ICP备17002922号</a>  更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a><br>
+		</p>
+</footer>
+<script type="text/javascript" src="__INDEX__/plugin/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/layer/3.0/layer.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__INDEX__/plugin/pifu/pifu.js"></script>
+<script type="text/javascript" src="__INDEX__/js/common.js"></script>
+<script> $(function(){ $(window).on("scroll",backToTopFun); backToTopFun(); }); </script>
+<script type="text/javascript" src="__INDEX__/plugin/wangEditor/js/wangEditor.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+    		$("img.lazyload").lazyload({failurelimit : 3});
+    	
+        wangEditor.config.printLog = false;
+        var editor1 = new wangEditor('textarea1');
+        editor1.config.menus = ['insertcode', 'quote', 'bold', '|', 'img', 'emotion', '|', 'undo', 'fullscreen'];
+        editor1.config.emotions = { 'default': { title: '老王表情', data: '__INDEX__/plugin/wangEditor/emotions1.data'}, 'default2': { title: '老王心情', data: '__INDEX__/plugin/wangEditor/emotions3.data'}, 'default3': { title: '顶一顶', data: '__INDEX__/plugin/wangEditor/emotions2.data'}};
+        editor1.create();
+
+        //show reply
+        $(".hf").click(function () {
+            pId = $(this).attr("name");
+            $(this).parents(".commentList").find(".cancelReply").trigger("click");
+            $(this).parent(".comment-body").append($(".comment").clone(true));
+            $(this).parent(".comment-body").find(".comment").removeClass("hidden");
+            $(this).hide();
+        });
+        //cancel reply
+        $(".cancelReply").on('click',function () {
+            $(this).parents(".comment-body").find(".hf").show();
+            $(this).parents(".comment-body").find(".comment").remove();
+        });
+    });
+
+//标签
+        $(".tags a").each(function(){
+            var x = 9;
+            var y = 0;
+            var rand = parseInt(Math.random() * (x - y + 1) + y);
+            $(this).addClass("tags"+rand)
+        });
+
+        $("img.lazyload").lazyload({failurelimit : 3});
+
+
+    function getPlainTxt() {
+		var data = $('#textarea1').val();
+        $.ajax({
+            type:"post",
+            url:"{:url('Index/article/commont_add')}",
+            data:data,//这里data传递过去的是序列化以后的字符串
+            success:function(data){
+
+            }
+        });
+    }
+</script>
+</body>
+</html>

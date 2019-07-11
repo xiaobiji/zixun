@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script> 
+</head>
+<body>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/cpbanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		<span class="select">设计理念</span>
+		<span>技术标准</span>          
+		<span>技术知识</span>
+		<div class="curadress"><a href="/">首页</a> >  > 技术标准</div>
+	</div>
+</div>
+<div class="container technicalbox">
+	<h2><b>七大优势集成全设计新生活理念</b>——使你的家庭拥有更多的获得感、幸福感。</h2>
+	<div class="ztcontent">
+		<div class="left">
+			<ul>
+				<li class="first">
+					<em>1</em>
+					<h4>全装配式结构体系</h4>
+					<p>建房如同搭积木</p>
+				</li>
+				<li>
+					<em>2</em>
+					<h4>基于BIM体系全产业链信息化系统<br/>设计建造管理和运营服务平台</h4>
+					<p>全面可追踪可控制</p>
+				</li>
+				<li>
+					<em>3</em>
+					<h4>全过程工业自动化智能<br/>生产体系</h4>
+					<p>像组装家具一样生产房屋建筑</p>
+				</li>
+				<li>
+					<em>4</em>
+					<h4>100%标准化结构与装修</h4>
+					<p>没有废料和建筑垃圾</p>
+				</li>
+				<li>
+					<em>5</em>
+					<h4>全绿色超低能耗建筑</h4>
+					<p>实现冬暖夏凉舒适生活</p>
+				</li>
+				<li>
+					<em>6</em>
+					<h4>一键式新零售个性化定制营销服务<br/>体系</h4>
+					<p>定制你的家庭空间</p>
+				</li>
+				<li class="last">
+					<em>7</em>
+					<h4>全生命周期服务，低成本打造新生活</h4>
+					<p>提供可重组（重复利用）有机更新模式</p>
+				</li>
+			</ul>
+		</div>
+		<div class="right">
+			<img src="/public/static/index/images/technical0.png"/>
+		</div>
+	</div>
+</div>
+{include file='common/footer'}
+<script type="text/javascript">
+var curtitle = $(".changetitlenr span");
+curtitle.each(function () {
+	$(this).click(function(){
+		$(".changetitlenr span").removeClass("select");
+		$(this).addClass("select");
+	})
+})
+</script>
+</body>
+</html>

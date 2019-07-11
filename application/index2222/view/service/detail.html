@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script>
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=CMIBZ-3C4WP-WOLDW-VSED3-AWGSQ-62BCQ"></script>
+</head>
+<body>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/cpbanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		<div class="curadress"><a href="/">首页</a> > <a href="{:url('index/service/index')}">产品服务</a> > <a>北斗品牌</a>>详情页</div>
+	</div>
+</div>
+<div class="container proddetail">
+	<div class="topbox">
+		<div class="prodleft">
+			<div class="image_big">
+	           <img src="/public/{$pics[0]}"/>
+	        </div>
+	        <div class="image_small">
+	           <ul>
+				   {volist name='pics' id='vo'}
+	              <li class="select">
+	                <img src="/public/{$vo}" width="120" height="83"/>
+	              </li>
+	              {/volist}
+	           </ul>
+	        </div>
+		</div>
+		<div class="prodright">
+			<h1>{$info.title}</h1>
+			<h4>描述：</h4>
+			<p>{$info.desc}</p>
+			<h3>咨询热线：<b>{$config.phone}</b></h3>
+			<h2>49.9~98.0万起</h2>
+			<a>立即预定</a>
+		</div>
+	</div>
+	<div class="btdetail">
+		<p class="detli"><span class="select">项目详情<b></b></span><span>项目位置</span></p>
+		<div class="textbox textzs0">
+			{$info.content}
+		</div>
+		<div class="textbox textzs1">
+			<div id="container" style="border:1px solid gray;width: 1000px;height: 600px;margin: 20px auto"></div>
+			<script>
+				window.onload = function(){
+
+//直接加载地图
+
+
+					//初始化地图函数  自定义函数名init
+					function init() {
+						//定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
+						var map = new qq.maps.Map(document.getElementById("container"), {
+							center: new qq.maps.LatLng(40.1221010000,116.1191180000),      // 地图的中心地理坐标。
+							zoom:13,                                                 // 地图的中心地理坐标。
+							scaleControl:true,			//设置是否显示比例尺
+							zoomControl:false			//设置缩放控件是否显示
+						});
+
+					}
+
+					//调用初始化函数地图
+					init();
+
+
+				}
+			</script>
+		</div>
+	</div>
+</div>
+{include file='common/footer'}
+<script type="text/javascript">
+//缩略图查看大图效果
+var smallimg=$(".image_small ul li img")
+smallimg.each(function(i){
+	$(this).hover(function(){
+		var cursrc=$(this).attr("src");
+		$(".image_small ul li").removeClass("select");
+		$(this).parent().addClass("select");
+		$(".image_big img").attr("src",cursrc);
+	})
+})
+
+//详情、位置切换
+ var navspan=$(".detli span");
+navspan.each(function(i){
+    $(this).click(function(){
+        $(".detli span").removeClass("select"); 
+        $(this).addClass("select");
+        $(".btdetail .textbox ").hide();
+        $(this).parent().parent().find(".textzs"+i).show();
+    })
+})
+</script>
+</body>
+</html>

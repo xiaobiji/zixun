@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$Think.lang.showcontent}</title>
+    <link rel="stylesheet" href="/public/static/admin/vendor/layui/css/layui.css">
+    <link rel="stylesheet" href="/public/static/admin/custom/css/style.css">
+    <style>
+        .layui-form-select dl{z-index: 2;}
+        #thumb_list{padding-top: 8px;}
+        #thumb_list img{border: 1px solid #DDD;padding: 3px;border-radius: 5px;}
+        #thumb_list span{position: relative;display: inline-block;margin-right: 5px;}
+        #thumb_list span .delimg{position: absolute;right:3px;top:3px;}
+    </style>
+</head>
+<body style="padding:10px 10px;margin-bottom: 50px;">
+<div class="layui-container">
+    <form class="layui-form" action="?" method="post">
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.title}</label>
+            <div class="layui-input-block">
+                <label class="layui-form-label">{$show_data.iname}</label>
+            </div>
+        </div>
+        
+
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.author}</label>
+            <div class="layui-input-inline">
+                <label class="layui-form-label">{$show_data.author}</label>
+            </div>
+        </div>
+        
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.addtime}</label>
+            <div class="layui-input-inline">
+                <label class="layui-form-label">{$show_data.add_time|date='Y/m/d H:i:s',###}</label>
+            </div>
+        </div>
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.thum}</label>
+            <div class="layui-input-block">
+                <div id="thumb_list">
+                    {volist name="show_data.pic" id="vo"}
+                    {if condition="$vo neq ''"}
+                    <span>
+                        <img src="/public/{$vo}" alt="..." width="200px" height="200px" class="layui-upload-img" onclick="previewImg(this)">
+                    </span>
+                    {/if}
+                    {/volist}
+                    {volist name="show_data.file" id="vo"}
+                    {if condition="$vo neq ''"}
+                    <a href="{$vo}" target="_blank">查看文件</a>
+                    {/if}
+                    {/volist}
+                </div>
+                <script>
+                $("#thumb_list").on("click","img",function(e){
+                layer.photos({ photos: {"data": [{"src": e.target.src}]} });
+                });
+                </script>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">{$Think.lang.contenttitle}</label>
+            <div class="layui-input-block">
+                <label>{$show_data.content}</label>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/public/static/admin/vendor/js/jquery.js"></script>
+<script src="/public/static/admin/vendor/layui/layui.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/public/static/admin/vendor/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/public/static/admin/vendor/ueditor/ueditor.all.js"></script>
+<script src="/public/static/admin/custom/js/admin.js"></script>
+<script>
+
+//点击查看大图 （图片原始大小）
+    function previewImg(obj) {
+        var img = new Image();
+        img.src = obj.src;
+        var height = img.height + 50;//获取图片高度
+        var width = img.width; //获取图片宽度
+        var imgHtml = "<img src='" + obj.src + "' />"; //弹出层
+        layer.open({
+            type: 1,
+            shade: 0.8,
+            offset: 'auto',
+            area: [width + 'px',height+'px'],
+            shadeClose:true,//点击外围关闭弹窗
+            scrollbar: false,//不现实滚动条
+            title: "图片预览", //不显示标题
+            content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+            cancel: function () {
+            //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', {
+            //time: 5000, icon: 6 });
+            }
+        });
+    }
+//点击查看大图 （500*500大小）
+//function previewImg(obj) {
+//    var img = new Image();
+//    img.src = obj.src;
+//    var imgHtml = "<img src='" + obj.src + "' width='500px' height='500px'/>"; //弹出层
+//    layer.open({
+//        type: 1,
+//        shade: 0.8,
+//        offset: 'auto',
+//        area: [500 + 'px',550+'px'],
+//        shadeClose:true,
+//        scrollbar: false,
+//        title: "图片预览", //不显示标题
+//        content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+//        cancel: function () {
+//            //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
+//            }
+//    });
+//}
+
+    var ue = UE.getEditor('content');
+    layui.use(['form','upload'], function(){
+        var form = layui.form;
+        var upload = layui.upload;
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+        });
+        //监听栏目
+        form.on('select(lanmu)', function(data){
+            console.log(data.elem); //得到select原始DOM对象
+            console.log(data.value); //得到被选中的值
+            var lmtype=$(data.elem).find('option:selected').attr('data');
+            switch (lmtype){
+                case "6":
+                    $('#team').fadeIn();
+                    $('#model').hide();
+                    break;
+                case "3":
+                    $('#model').fadeIn();
+                    $('#team').hide();
+                    break;
+                default :
+                    $('#model').hide();
+                    $('#team').hide();
+                    break;
+            }
+        });
+        //创建一个上传组件
+        upload.render({
+            elem: '#uploadimg'
+            ,url: '{:url("common/uploadimg")}'
+            ,accept: 'images' //允许上传的文件类型
+            ,field:"imgfile"
+            ,size: 2048 //最大允许上传的文件大小
+            ,done: function(res, index, upload){ //上传后的回调
+                layer.close(layer.index,{isOutAnim:true});
+                setTimeout(function () {
+                    layer.msg(res.msg);
+                    if(res.code==1){
+                        var pic=$('input[name=pic]').val();
+                        if(pic==""){
+                            $('input[name=pic]').val(res.img);
+                        }else{
+                            $('input[name=pic]').val(pic+","+res.img);
+                        }
+                        var str;
+                        str="<span>";
+                        str=str+'<img src="/public/'+res.img+'" alt="" height="80">';
+                        str=str+'<button type="button" class="layui-btn layui-btn-danger layui-btn-mini delimg" onclick="delimg(this);" data="'+res.img+'">';
+                        str=str+'<i class="layui-icon">&#xe640;</i>';
+                        str=str+'</button>';
+                        str=str+'</span>';
+                        $('#thumb_list').append(str);
+                    }else{
+
+                    }
+
+                },500);
+            }
+            ,before:function () {
+                var index = layer.load();
+            }
+
+            //,……
+        })
+    });
+
+
+
+
+
+    $(function(){
+        $(window.parent.document).find('#righttitle').text($('title').text());
+    });
+    //删除内容缩略图片
+    function delimg(obj) {
+        var picurl=$(obj).attr('data');
+        $.ajax({
+            type:"post",
+            url:"{:url('common/delimg')}",
+            data:{'url':picurl},
+            success:function (res) {
+                var picvalue=$('input[name=pic]').val();
+                var str="";
+                if(res.code==1 || res.code==2){
+                    //栏目图片文本框中图片地址处理
+                    if(picvalue==picurl){
+                        $('input[name=pic]').val('');
+                    }else{
+                        str=picvalue.replace(picurl+",","");
+                        str=str.replace(","+picurl,"");
+                        $('input[name=pic]').val(str);
+                    }
+                    //删除/移除缩略图
+                    $(obj).parent().remove();
+                    layer.msg(res.msg);
+                }
+                if(res.code==0){
+                    layer.msg(res.msg);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

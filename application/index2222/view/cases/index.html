@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script> 
+</head>
+<body>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/casebanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		<span class="select">研发项目</span>
+		<span>工程项目</span>
+		<div class="curadress"><a>首页</a> > <a>产品服务</a> > 北斗品牌</div>
+	</div>
+</div>
+<div class="container casebox">
+	<ul>
+		{volist name='caseinfo' id='vo'}
+		<li>
+			<a href="{:url('index/cases/detail',['id'=>$vo.id])}">
+				<div class="imgbox">
+					<img src="/public/{$vo.pic}"/>
+				</div>
+				<h4>{$vo.title}</h4>
+				<p>{$vo.desc}</p>
+			</a>
+		</li>
+		{/volist}
+	</ul>
+	<div class="page">
+		{$page}
+	</div>
+</div>
+{include file='common/footer'}
+<script type="text/javascript">
+var curtitle = $(".changetitlenr span");
+curtitle.each(function () {
+	$(this).click(function(){
+		$(".changetitlenr span").removeClass("select");
+		$(this).addClass("select");
+	})
+})
+</script>
+</body>
+</html>

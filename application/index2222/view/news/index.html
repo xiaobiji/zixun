@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script> 
+</head>
+<body>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/cpbanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		{volist name='news_after_name' id='vo'}
+		{if condition="($i == 1)"}
+			<span class="select select_1">{$vo.name}</span>
+		{else /}
+			<span class="select_2">{$vo.name}</span></p>
+		{/if}
+		{/volist}
+		<div class="curadress"><a href="/">首页</a> > <a href="{:url('index/news/index')}">新闻政策</a> > 新闻中心</div>
+	</div>
+</div>
+<!-- 内容切换 -->
+<div id="tabs-1">
+	{notempty name='news_one_info'}
+	<div class="container newsbox">
+		<ul>
+			{volist name='news_one_info' id='vo'}
+			<li>
+				<div class="leftimg">
+					<img src="/public/{$vo.pic}"/>
+				</div>
+				<div class="righttext">
+					<h4>{$vo.title}</h4>
+					<a href="{:url('index/news/detail',['id'=>$vo.id])}">
+						<p>{$vo.desc}</p>
+					</a>
+					<h5>{:date('Y-m-d',$vo.addtime)}</h5>
+					<a href="{:url('index/news/detail',['id'=>$vo.id])}">查看更多...</a>
+				</div>
+			</li>
+			{/volist}	
+		</ul>
+		<div class="page">
+			{$page}
+		</div>
+	</div>
+	{/notempty}
+</div>
+<div id="tabs-2" style="display: none">
+	{notempty name='news_two_info'}
+	<div class="container newsbox">
+		<ul>
+			{volist name='news_two_info' id='vo'}
+			<li>
+				<div class="leftimg">
+					<img src="/public/{$vo.pic}"/>
+				</div>
+				<div class="righttext">
+					<h4>{$vo.title}</h4>
+					<a href="{:url('index/news/detail',['id'=>$vo.id])}">
+						<p>{$vo.desc}</p>
+					</a>
+					<h5>{:date('Y-m-d',$vo.addtime)}</h5>
+					<a href="{:url('index/news/detail',['id'=>$vo.id])}">查看更多...</a>
+				</div>
+			</li>
+			{/volist}	
+		</ul>
+		<div class="page">
+			{$page}
+		</div>
+	</div>
+	{/notempty}
+</div>
+{include file='common/footer'}
+<script type="text/javascript">
+var curtitle = $(".changetitlenr span");
+curtitle.each(function () {
+	$(this).click(function(){
+		$(".changetitlenr span").removeClass("select");
+		$(this).addClass("select");
+		if($(this).hasClass('select_1')){
+			$('#tabs-1').show();
+			$('#tabs-2').hide();
+		}else{
+			$('#tabs-1').hide();
+			$('#tabs-2').show();
+		}
+	})
+})
+</script>
+</body>
+</html>

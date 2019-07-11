@@ -1,0 +1,94 @@
+
+
+
+
+
+
+<script>
+	var ctx = '';
+	var iurl = 'http://dt-jungle.oss-cn-shanghai.aliyuncs.com';
+	var csrf = '94c8040b-9ec2-4894-899f-b9984643a648';
+	var arr = new Array();
+	arr[0] = 0;
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link media="screen and (max-width:999px)" href="http://i.51ces.cn/miji/css/css.css" rel="stylesheet" type="text/css">
+    <link media="screen and (min-width:1000px)" href="http://i.51ces.cn/miji/css/xcss.css" rel="stylesheet" type="text/css">
+    <link media="screen and (max-width:999px)" href="http://i.51ces.cn/miji/css/web.css" rel="stylesheet" type="text/css"/>
+    <link media="screen and (min-width:1000px)" href="http://i.51ces.cn/miji/css/xweb.css" rel="stylesheet" type="text/css"/>
+    <script src="http://i.51ces.cn/miji/js/area.js"></script>
+    <!-- Bytedance Tracking -->
+    <script>
+        (function(r,d,s,l){var meteor=r.meteor=r.meteor||[];meteor.methods=["track","off","on"];meteor.factory=function(method){return function(){
+            var args=Array.prototype.slice.call(arguments);args.unshift(method);meteor.push(args);return meteor}};for(var i=0;i<meteor.methods.length;i++){
+            var key=meteor.methods[i];meteor[key]=meteor.factory(key)}meteor.load=function(){var js,fjs=d.getElementsByTagName(s)[0];js=d.createElement(s);
+            js.src="https://analytics.snssdk.com/meteor.js/v1/"+l+"/sdk";fjs.parentNode.insertBefore(js,fjs)};meteor.load();if(meteor.invoked){return}
+            meteor.invoked=true;meteor.track("pageview")})(window,document,"script","111628948199");
+    </script>
+    <!-- End Bytedance Tracking -->
+    
+<body>
+	<div class="main">
+        <div class="clear"></div>
+    	<div class="con2">
+        <img src="http://i.51ces.cn/miji/images/1.jpg">
+        <img src="http://i.51ces.cn/miji/images/2.jpg">
+		</div>
+	</div>       
+  <div class="clear"></div>
+    <div class="content">
+        <form class="form-box" id="orderform01" action="http://order.i/jy" method="post" onsubmit="return checkuser('orderform01')">
+            <input type="hidden" name="cid" class="cid" value="" />
+            <input type="hidden" name="bm" value="p02"/>
+            <div class="radiv">
+                <label><input name="type" type="radio" value="小学版" class="radio" checked/>小学 </label>
+                <label><input name="type" type="radio" value="初中版" class="radio"/>初中 </label>
+                <label><input name="type" type="radio" value="高中版" class="radio"/>高中 </label>
+            </div>
+            <input type="text" name="name" placeholder="请输入您的姓名" class="TheTel" />
+            <input type="text" name="phone" placeholder="请输入您的手机号码" class="TheTel"/>
+            <input type="text" name="remark" placeholder="备注哪门成绩差 如数学" class="TheTel"/>
+            <button ut-data-click ut-data-convertid="21895" ut-data-eventtype="FormSubmit" type="submit" class="TheBtn">免费试学</button>
+            <!--<input type="submit" value="立即预约订购" class="TheBtn"/>-->
+        </form>	<!--输入框end-->
+    </div>
+  <div class="footer">
+       <p>牡丹江市邦尼教育培训学校</p>
+         </div>
+
+
+    <script>
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+
+
+        function checkuser(formid){
+            if(document.getElementById(formid).name.value == ''){
+                document.getElementById(formid).name.focus();
+                alert("请输入收货人姓名");
+                return false;
+            }
+            if (!(/^1[3|4|5|7|8][0-9]\d{4,8}$/.test(document.getElementById(formid).phone.value))
+                || document.getElementById(formid).phone.value.length != 11) {
+                document.getElementById(formid).phone.focus();
+                alert("您的电话输入有误，请重新填写！");
+                return false;
+            }
+            return true;
+
+        }
+    </script>
+</body>
+</html>

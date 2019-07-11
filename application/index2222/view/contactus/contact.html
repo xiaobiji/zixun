@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$config.title}</title>
+<link href="/public/static/index/css/base.css" type="text/css" rel="stylesheet">
+<link href="/public/static/index/css/twolevel.css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/public/static/index/js/jquery.min.js"></script>
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=CMIBZ-3C4WP-WOLDW-VSED3-AWGSQ-62BCQ"></script>
+</head>
+<body>
+{include file='common/header'}
+{include file='common/menu'}
+<div class="banner">
+	<img src="/public/static/index/images/lxbanner.jpg"/>
+</div>
+<div class="changetitle">
+	<div class="changetitlenr">
+		<span class="select">联系我们</span>
+		<div class="curadress"><a href="/">首页</a> >  联系我们</div>
+	</div>
+</div>
+<div id="container" style="border:1px solid gray;width: 1000px;height: 600px;margin: 20px auto"></div>
+<script>
+	window.onload = function(){
+
+//直接加载地图
+
+
+		//初始化地图函数  自定义函数名init
+		function init() {
+			//定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
+			var map = new qq.maps.Map(document.getElementById("container"), {
+				center: new qq.maps.LatLng(40.1221010000,116.1191180000),      // 地图的中心地理坐标。
+				zoom:13,                                                 // 地图的中心地理坐标。
+				scaleControl:true,			//设置是否显示比例尺
+				zoomControl:false			//设置缩放控件是否显示
+			});
+
+			var infoWin = new qq.maps.InfoWindow({
+				map: map
+			});
+			infoWin.open();
+			infoWin.setContent('北京市昌平区阳坊镇前白虎涧村东');
+			infoWin.setPosition(map.getCenter());
+		}
+
+		//调用初始化函数地图
+		init();
+
+
+	}
+</script>
+<div class="container contactbox">
+	<h3>北京建工华创科技发展股份有限公司</h3>
+	<p>地   址：{$config.address}</p>
+	<p>电   话：{$config.phone}</p>
+	<p>传   真：{$config.email}</p>
+	<p>邮   编：102200</p>
+	<p>网   址：{$currtyurl}</p>
+</div>
+{include file='common/footer'}
+</body>
+</html>
