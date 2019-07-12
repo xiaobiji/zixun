@@ -46,9 +46,65 @@ class Toutiao extends Common
     }
     //内容添加
     public function add(){
-
         if(request()->isPost()){
             $data=input('post.');
+            if(isset($data['url']) && !empty($data['url'])){
+                $urlarr = preg_split("/[\n\r]+/", $data['url'], -1, PREG_SPLIT_NO_EMPTY);
+                $nodata='';
+                $havedata='';
+                foreach ($urlarr as $k=>$v){
+                    $data = array();
+                    preg_match('/id=(\d+)/',$v,$gid);
+                    if(!empty($gid)) {
+                        $file_contents = file_get_contents('https://ec.snssdk.com/product/lubanajaxstaticitem?id=' . $gid[1]);
+                        $file_contents = json_decode($file_contents);
+
+                        $data['url'] = $v;
+                        $data['gid'] = $gid[1];
+                        $result = Db::query('select id from lee_toutiao where gid = '.$data['gid']);
+                        if($result){
+                            $havedata.=$v. '</br>';
+                            continue;
+                        }
+                        if(isset($file_contents->data->name)){
+                            $data['title'] = $file_contents->data->name;
+                            $data['sell_num'] = $file_contents->data->sell_num;
+                            $data['goods_img'] = $file_contents->data->img;
+                            $data['market_price'] = $file_contents->data->market_price;
+                            $data['discount_price'] = $file_contents->data->discount_price;
+                            $data['sku_max_price'] = $file_contents->data->sku_max_price;
+                            $data['sku_min_price'] = $file_contents->data->sku_min_price;
+                            $data['shop_name'] = $file_contents->data->shop_name;
+                            $data['company_name'] = $file_contents->data->company_name;
+                            $data['add_time'] = time();
+                            $data['update_time'] = time();
+                            Db::execute('insert into lee_toutiao (url,gid,title,sell_num,goods_img,market_price,discount_price,sku_max_price,sku_min_price,shop_name, company_name ,add_time,update_time) values ("'.$data['url'].'","'.$data['gid'].'","'.$data['title'].'","'.$data['sell_num'].'","'.$data['goods_img'].'","'.$data['market_price'].'","'.$data['discount_price'].'","'.$data['sku_max_price'].'","'.$data['sku_min_price'].'","'.$data['shop_name'].'","'.$data['company_name'].'","'.$data['add_time'].'","'.$data['update_time'].'")');
+
+                            Db::execute('insert into lee_toutiaolog (url,gid,title,sell_num,goods_img,market_price,discount_price,sku_max_price,sku_min_price,shop_name, company_name ,add_time,update_time) values ("'.$data['url'].'","'.$data['gid'].'","'.$data['title'].'","'.$data['sell_num'].'","'.$data['goods_img'].'","'.$data['market_price'].'","'.$data['discount_price'].'","'.$data['sku_max_price'].'","'.$data['sku_min_price'].'","'.$data['shop_name'].'","'.$data['company_name'].'","'.$data['add_time'].'","'.$data['update_time'].'")');
+                        }else{
+
+                           $nodata .=$v . '</br>';
+                        }
+                    }
+                }
+
+                if($havedata){
+                    echo $havedata .'</br>已存在,其余链接查询成功</br></br></br></br>';
+                }
+                if($nodata){
+                    echo $nodata .'</br>查询不到数据,其余链接查询成功</br></br></br></br>';
+                }
+                if(!$havedata && !$nodata){
+                    $this->success('查询成功');
+                }
+                exit;
+            }else{
+                $this->error('请输入要查询产品链接');
+            }
+
+            /**
+             * 原来单条数据添加开始 开始
+
             if(!empty($data['url']) && !empty($data['gid'])){
                 preg_match('/id=(\d+)/',$data['url'],$gid);
                 if(!empty($gid)){
@@ -106,6 +162,9 @@ class Toutiao extends Common
             }
             $this->success(lang('Content addition success'));
             return;
+
+            * 原来单条数据添加查询  结束
+            */
         }
         return $this->fetch();
     }
@@ -185,12 +244,15 @@ class Toutiao extends Common
             ->where('id',$id)
             ->field('is_check')
             ->find();
+        $status ='更改成功';
         if($data['is_check']==1){
             model('Toutiao')->allowField(true)->save(['is_check'=>0],['id' => $id]);
+            $status='已经开始监测';
         }else{
             model('Toutiao')->allowField(true)->save(['is_check'=>1],['id' => $id]);
+            $status='已经停止监测';
         }
-        $this->success('更改成功');
+        $this->success($status);
     }
 
 
@@ -248,17 +310,21 @@ class Toutiao extends Common
         $data['discount_price']=$file_contents->data->discount_price;
         $data['sku_max_price']=$file_contents->data->sku_max_price;
         $data['sku_min_price']=$file_contents->data->sku_min_price;
+        $data['shop_name']=$file_contents->data->shop_name;
+        $data['company_name']=$file_contents->data->company_name;
         $data['update_time']=time();
         //更新内容信息
         $result=model('Toutiaolog')->allowField(true)->save($data);
         if($result){
-            model('Toutiao')->allowField(true)->save(['is_sale'=>1,'sell_num'=>$data['sell_num'],'discount_price'=>$data['discount_price'],'is_check'=>1,'update_time'=>$data['update_time']],['id' => $id]);
+            model('Toutiao')->allowField(true)->save(['is_sale'=>1,'sell_num'=>$data['sell_num'],'discount_price'=>$data['discount_price'],'is_check'=>1,'update_time'=>$data['update_time'],'shop_name'=>$data['shop_name'],'company_name'=>$data['company_name']],['id' => $id]);
             $this->success("查询成功",'index');
         }else{
             $this->success("查询失败",'index');
         }
 
     }
+
+
     //内容编辑
     public function allCheck(){
         //获取文章信息
@@ -303,6 +369,7 @@ class Toutiao extends Common
                 continue;
             }
             if(!isset($file_contents->data->name)){
+                Db::execute("update lee_toutiao set update_time='".$data[$k]['update_time']."',is_sale=0 where id=".$data[$k]['id']);
                 continue;
             }
             $data[$k]['title']=$file_contents->data->name;
@@ -312,11 +379,16 @@ class Toutiao extends Common
             $data[$k]['discount_price']=$file_contents->data->discount_price;
             $data[$k]['sku_max_price']=$file_contents->data->sku_max_price;
             $data[$k]['sku_min_price']=$file_contents->data->sku_min_price;
+            $data[$k]['shop_name']=$file_contents->data->shop_name;
+            $data[$k]['company_name']=$file_contents->data->company_name;
             $data[$k]['update_time']=time();
-            Db::execute("INSERT INTO lee_toutiaolog set update_time='".$data[$k]['update_time']."',title='".$data[$k]['title']."',sell_num='".$data[$k]['sell_num']."',goods_img='".$data[$k]['goods_img']."',market_price='".$data[$k]['market_price']."',discount_price='".$data[$k]['discount_price']."',sku_max_price='".$data[$k]['sku_max_price']."',sku_min_price='".$data[$k]['sku_min_price']);
-            Db::execute("update lee_toutiao set update_time='".$data[$k]['update_time']." where id=".$data[$k]['id']);
+            Db::execute("INSERT INTO lee_toutiaolog set update_time='".$data[$k]['update_time']."',title='".$data[$k]['title']."',sell_num='".$data[$k]['sell_num']."',goods_img='".$data[$k]['goods_img']."',market_price='".$data[$k]['market_price']."',discount_price='".$data[$k]['discount_price']."',shop_name='".$data[$k]['shop_name']."',company_name='".$data[$k]['company_name']."',sku_max_price='".$data[$k]['sku_max_price']."',sku_min_price='".$data[$k]['sku_min_price']."'");
+            Db::execute("update lee_toutiao set update_time='".$data[$k]['update_time']."',title='".$data[$k]['title']."',sell_num='".$data[$k]['sell_num']."',goods_img='".$data[$k]['goods_img']."',market_price='".$data[$k]['market_price']."',discount_price='".$data[$k]['discount_price']."',shop_name='".$data[$k]['shop_name']."',company_name='".$data[$k]['company_name']."',sku_max_price='".$data[$k]['sku_max_price']."',sku_min_price='".$data[$k]['sku_min_price']."' where id=".$data[$k]['id']);
         }
+        $this->success("查询成功");
     }
+
+
     public function search($keywords=null){
         if(request()->isPost()) {
             $search_data = input('post.')['keywords'];

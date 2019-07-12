@@ -12,68 +12,68 @@
         {
             $names = explode('\\', $name);
             return '<abbr title="'.$name.'">'.end($names).'</abbr>';
-        }
-    }
+}
+}
 
-    if(!function_exists('parse_file')){
-        function parse_file($file, $line)
-        {
-            return '<a class="toggle" title="'."{$file} line {$line}".'">'.basename($file)." line {$line}".'</a>';
-        }
-    }
+if(!function_exists('parse_file')){
+function parse_file($file, $line)
+{
+return '<a class="toggle" title="'."{$file} line {$line}".'">'.basename($file)." line {$line}".'</a>';
+}
+}
 
-    if(!function_exists('parse_args')){
-        function parse_args($args)
-        {
-            $result = [];
+if(!function_exists('parse_args')){
+function parse_args($args)
+{
+$result = [];
 
-            foreach ($args as $key => $item) {
-                switch (true) {
-                    case is_object($item):
-                        $value = sprintf('<em>object</em>(%s)', parse_class(get_class($item)));
-                        break;
-                    case is_array($item):
-                        if(count($item) > 3){
-                            $value = sprintf('[%s, ...]', parse_args(array_slice($item, 0, 3)));
-                        } else {
-                            $value = sprintf('[%s]', parse_args($item));
-                        }
-                        break;
-                    case is_string($item):
-                        if(strlen($item) > 20){
-                            $value = sprintf(
-                                '\'<a class="toggle" title="%s">%s...</a>\'',
-                                htmlentities($item),
-                                htmlentities(substr($item, 0, 20))
-                            );
-                        } else {
-                            $value = sprintf("'%s'", htmlentities($item));
-                        }
-                        break;
-                    case is_int($item):
-                    case is_float($item):
-                        $value = $item;
-                        break;
-                    case is_null($item):
-                        $value = '<em>null</em>';
-                        break;
-                    case is_bool($item):
-                        $value = '<em>' . ($item ? 'true' : 'false') . '</em>';
-                        break;
-                    case is_resource($item):
-                        $value = '<em>resource</em>';
-                        break;
-                    default:
-                        $value = htmlentities(str_replace("\n", '', var_export(strval($item), true)));
-                        break;
-                }
+foreach ($args as $key => $item) {
+switch (true) {
+case is_object($item):
+$value = sprintf('<em>object</em>(%s)', parse_class(get_class($item)));
+break;
+case is_array($item):
+if(count($item) > 3){
+$value = sprintf('[%s, ...]', parse_args(array_slice($item, 0, 3)));
+} else {
+$value = sprintf('[%s]', parse_args($item));
+}
+break;
+case is_string($item):
+if(strlen($item) > 20){
+$value = sprintf(
+'\'<a class="toggle" title="%s">%s...</a>\'',
+htmlentities($item),
+htmlentities(substr($item, 0, 20))
+);
+} else {
+$value = sprintf("'%s'", htmlentities($item));
+}
+break;
+case is_int($item):
+case is_float($item):
+$value = $item;
+break;
+case is_null($item):
+$value = '<em>null</em>';
+break;
+case is_bool($item):
+$value = '<em>' . ($item ? 'true' : 'false') . '</em>';
+break;
+case is_resource($item):
+$value = '<em>resource</em>';
+break;
+default:
+$value = htmlentities(str_replace("\n", '', var_export(strval($item), true)));
+break;
+}
 
-                $result[] = is_int($key) ? $value : "'{$key}' => {$value}";
-            }
+$result[] = is_int($key) ? $value : "'{$key}' => {$value}";
+}
 
-            return implode(', ', $result);
-        }
-    }
+return implode(', ', $result);
+}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -163,9 +163,9 @@
         .clearfix {
             clear:both;
         }
-        @media only screen 
-        and (min-device-width : 375px) 
-        and (max-device-width : 667px) { 
+        @media only screen
+        and (min-device-width : 375px)
+        and (max-device-width : 667px) {
             .col-md-3,
             .col-md-9 {
                 width: 100%;
@@ -212,7 +212,7 @@
             display: inline-block;
             min-width: 100%;
             box-sizing: border-box;
-        font-size:14px;
+            font-size:14px;
             font-family: "Century Gothic",Consolas,"Liberation Mono",Courier,Verdana;
             padding-left: <?php echo (isset($source) && !empty($source)) ? parse_padding($source) : 40;  ?>px;
         }
@@ -226,7 +226,7 @@
             height: 100%;
             display: inline-block;
             border-left: 1px solid #fff;
-        font-size:14px;
+            font-size:14px;
             font-family: Consolas,"Liberation Mono",Courier,Verdana,"微软雅黑";
         }
         .exception .trace{
@@ -234,7 +234,7 @@
             border: 1px solid #ddd;
             border-top: 0 none;
             line-height: 16px;
-        font-size:14px;
+            font-size:14px;
             font-family: Consolas,"Liberation Mono",Courier,Verdana,"微软雅黑";
         }
         .exception .trace ol{
@@ -254,7 +254,7 @@
             margin: 12px 0;
             box-sizing: border-box;
             table-layout:fixed;
-            word-wrap:break-word;            
+            word-wrap:break-word;
         }
         .exception-var table caption{
             text-align: left;
@@ -310,40 +310,40 @@
     </style>
 </head>
 <body>
-    <div class="echo">
-        <?php echo $echo;?>
-    </div>
-    <?php if(\think\App::$debug) { ?>
-    <div class="exception">
+<div class="echo">
+    <?php echo $echo;?>
+</div>
+<?php if(\think\App::$debug) { ?>
+<div class="exception">
     <div class="message">
-        
-            <div class="info">
-                <div>
-                    <h2>[<?php echo $code; ?>]&nbsp;<?php echo sprintf('%s in %s', parse_class($name), parse_file($file, $line)); ?></h2>
-                </div>
-                <div><h1><?php echo nl2br(htmlentities($message)); ?></h1></div>
+
+        <div class="info">
+            <div>
+                <h2>[<?php echo $code; ?>]&nbsp;<?php echo sprintf('%s in %s', parse_class($name), parse_file($file, $line)); ?></h2>
             </div>
-        
-    </div>
-	<?php if(!empty($source)){?>
-        <div class="source-code">
-            <pre class="prettyprint lang-php"><ol start="<?php echo $source['first']; ?>"><?php foreach ((array) $source['source'] as $key => $value) { ?><li class="line-<?php echo $key + $source['first']; ?>"><code><?php echo htmlentities($value); ?></code></li><?php } ?></ol></pre>
+            <div><h1><?php echo nl2br(htmlentities($message)); ?></h1></div>
         </div>
-	<?php }?>
-        <div class="trace">
-            <h2>Call Stack</h2>
-            <ol>
-                <li><?php echo sprintf('in %s', parse_file($file, $line)); ?></li>
-                <?php foreach ((array) $trace as $value) { ?>
-                <li>
-                <?php 
+
+    </div>
+    <?php if(!empty($source)){?>
+    <div class="source-code">
+    <pre class="prettyprint lang-php"><ol start="<?php echo $source['first']; ?>"><?php foreach ((array) $source['source'] as $key => $value) { ?><li class="line-<?php echo $key + $source['first']; ?>"><code><?php echo htmlentities($value); ?></code></li><?php } ?></ol></pre>
+</div>
+<?php }?>
+<div class="trace">
+    <h2>Call Stack</h2>
+    <ol>
+        <li><?php echo sprintf('in %s', parse_file($file, $line)); ?></li>
+        <?php foreach ((array) $trace as $value) { ?>
+        <li>
+            <?php
                     // Show Function
                     if($value['function']){
                         echo sprintf(
-                            'at %s%s%s(%s)', 
+                            'at %s%s%s(%s)',
                             isset($value['class']) ? parse_class($value['class']) : '',
-                            isset($value['type'])  ? $value['type'] : '', 
-                            $value['function'], 
+                            isset($value['type'])  ? $value['type'] : '',
+                            $value['function'],
                             isset($value['args'])?parse_args($value['args']):''
                         );
                     }
@@ -353,37 +353,35 @@
                         echo sprintf(' in %s', parse_file($value['file'], $value['line']));
                     }
                 ?>
-                </li>
-                <?php } ?>
-            </ol>
-        </div>
-    </div>
-    <?php } else { ?>
-    <div class="exception">
-        
-            <div class="info"><h1><?php echo htmlentities($message); ?></h1></div>
-        
-    </div>
-    <?php } ?>
-    
-    <?php if(!empty($datas)){ ?>
-    <div class="exception-var">
-        <h2>Exception Datas</h2>
-        <?php foreach ((array) $datas as $label => $value) { ?>
-        <table>
-            <?php if(empty($value)){ ?>
-            <caption><?php echo $label; ?><small>empty</small></caption>
-            <?php } else { ?>
-            <caption><?php echo $label; ?></caption>
-            <tbody>
-                <?php foreach ((array) $value as $key => $val) { ?>
-                <tr>
-                    <td><?php echo htmlentities($key); ?></td>
-                    <td>
-                        <?php 
-                            if(is_array($val) || is_object($val)){ 
+        </li>
+        <?php } ?>
+    </ol>
+</div>
+</div>
+<?php } else { ?>
+<div class="exception">
+    <div class="info"><h1><?php echo htmlentities($message); ?></h1></div>
+</div>
+<?php } ?>
+
+<?php if(!empty($datas)){ ?>
+<div class="exception-var">
+    <h2>Exception Datas</h2>
+    <?php foreach ((array) $datas as $label => $value) { ?>
+    <table>
+        <?php if(empty($value)){ ?>
+        <caption><?php echo $label; ?><small>empty</small></caption>
+        <?php } else { ?>
+        <caption><?php echo $label; ?></caption>
+        <tbody>
+        <?php foreach ((array) $value as $key => $val) { ?>
+        <tr>
+            <td><?php echo htmlentities($key); ?></td>
+            <td>
+                <?php
+                            if(is_array($val) || is_object($val)){
                                 echo htmlentities(json_encode($val, JSON_PRETTY_PRINT));
-                            } else if(is_bool($val)) { 
+                            } else if(is_bool($val)) {
                                 echo $val ? 'true' : 'false';
                             } else if(is_scalar($val)) {
                                 echo htmlentities($val);
@@ -391,37 +389,37 @@
                                 echo 'Resource';
                             }
                         ?>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-            <?php } ?>
-        </table>
+            </td>
+        </tr>
         <?php } ?>
-    </div>
+        </tbody>
+        <?php } ?>
+    </table>
     <?php } ?>
+</div>
+<?php } ?>
 
-    <?php if(!empty($tables)){ ?>
-    <div class="exception-var">
-        <h2>Environment Variables</h2>
-        <?php foreach ((array) $tables as $label => $value) { ?>
+<?php if(!empty($tables)){ ?>
+<div class="exception-var">
+    <h2>Environment Variables</h2>
+    <?php foreach ((array) $tables as $label => $value) { ?>
+    <div>
+        <?php if(empty($value)){ ?>
+        <div class="clearfix">
+            <div class="col-md-3"><strong><?php echo $label; ?></strong></div>
+            <div class="col-md-9"><small>empty</small></div>
+        </div>
+        <?php } else { ?>
+        <h3 class="subheading"><?php echo $label; ?></h3>
         <div>
-            <?php if(empty($value)){ ?>
+            <?php foreach ((array) $value as $key => $val) { ?>
             <div class="clearfix">
-                <div class="col-md-3"><strong><?php echo $label; ?></strong></div>
-                <div class="col-md-9"><small>empty</small></div>
-            </div>
-            <?php } else { ?>
-            <h3 class="subheading"><?php echo $label; ?></h3>
-            <div>
-                <?php foreach ((array) $value as $key => $val) { ?>
-                <div class="clearfix">
-                    <div class="col-md-3"><strong><?php echo htmlentities($key); ?></strong></div>
-                    <div class="col-md-9"><small>
-                        <?php 
-                            if(is_array($val) || is_object($val)){ 
+                <div class="col-md-3"><strong><?php echo htmlentities($key); ?></strong></div>
+                <div class="col-md-9"><small>
+                        <?php
+                            if(is_array($val) || is_object($val)){
                                 echo htmlentities(json_encode($val, JSON_PRETTY_PRINT));
-                            } else if(is_bool($val)) { 
+                            } else if(is_bool($val)) {
                                 echo $val ? 'true' : 'false';
                             } else if(is_scalar($val)) {
                                 echo htmlentities($val);
@@ -430,108 +428,110 @@
                             }
                         ?>
                     </small></div>
-                </div>
-                <?php } ?>
             </div>
             <?php } ?>
         </div>
         <?php } ?>
     </div>
     <?php } ?>
+</div>
+<?php } ?>
 
-    <div class="copyright">
-        <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a> 
-        <span>V<?php echo THINK_VERSION; ?></span> 
-        <span>{ 十年磨一剑-为API开发设计的高性能框架 }</span>
-    </div>
-    <?php if(\think\App::$debug) { ?>
-    <script>
-        var LINE = <?php echo $line; ?>;
+<div class="copyright">
+    <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a>
+    <span>V<?php echo THINK_VERSION; ?></span>
+    <span>{ 十年磨一剑-为API开发设计的高性能框架 }</span>
+</div>
+<?php if(\think\App::$debug) { ?>
+<script>
+    var LINE = <?php echo $line; ?>;
 
-        function $(selector, node){
-            var elements;
+    function $(selector, node){
+        var elements;
+
+        node = node || document;
+        if(document.querySelectorAll){
+            elements = node.querySelectorAll(selector);
+        } else {
+            switch(selector.substr(0, 1)){
+                case '#':
+                    elements = [node.getElementById(selector.substr(1))];
+                    break;
+                case '.':
+                    if(document.getElementsByClassName){
+                        elements = node.getElementsByClassName(selector.substr(1));
+                    } else {
+                        elements = get_elements_by_class(selector.substr(1), node);
+                    }
+                    break;
+                default:
+                    elements = node.getElementsByTagName();
+            }
+        }
+        return elements;
+
+        function get_elements_by_class(search_class, node, tag) {
+            var elements = [], eles,
+                pattern  = new RegExp('(^|\\s)' + search_class + '(\\s|$)');
 
             node = node || document;
-            if(document.querySelectorAll){
-                elements = node.querySelectorAll(selector);
-            } else {
-                switch(selector.substr(0, 1)){
-                    case '#':
-                        elements = [node.getElementById(selector.substr(1))];
-                        break;
-                    case '.':
-                        if(document.getElementsByClassName){
-                            elements = node.getElementsByClassName(selector.substr(1));
-                        } else {
-                            elements = get_elements_by_class(selector.substr(1), node);
-                        }
-                        break;
-                    default:
-                        elements = node.getElementsByTagName();
+            tag  = tag  || '*';
+
+            eles = node.getElementsByTagName(tag);
+            for(var i = 0; i < eles.length; i++) {
+                if(pattern.test(eles[i].className)) {
+                    elements.push(eles[i])
                 }
             }
+
             return elements;
+        }
+    }
 
-            function get_elements_by_class(search_class, node, tag) {
-                var elements = [], eles, 
-                    pattern  = new RegExp('(^|\\s)' + search_class + '(\\s|$)');
+    $.getScript = function(src, func){
+        var script = document.createElement('script');
 
-                node = node || document;
-                tag  = tag  || '*';
+        script.async  = 'async';
+        script.src    = src;
+        script.onload = func || function(){};
 
-                eles = node.getElementsByTagName(tag);
-                for(var i = 0; i < eles.length; i++) {
-                    if(pattern.test(eles[i].className)) {
-                        elements.push(eles[i])
-                    }
-                }
+        $('head')[0].appendChild(script);
+    }
 
-                return elements;
+    ;(function(){
+        var files = $('.toggle');
+        var ol    = $('ol', $('.prettyprint')[0]);
+        var li    = $('li', ol[0]);
+
+        // 短路径和长路径变换
+        for(var i = 0; i < files.length; i++){
+            files[i].ondblclick = function(){
+                var title = this.title;
+
+                this.title = this.innerHTML;
+                this.innerHTML = title;
             }
         }
 
-        $.getScript = function(src, func){
-            var script = document.createElement('script');
-            
-            script.async  = 'async';
-            script.src    = src;
-            script.onload = func || function(){};
-            
-            $('head')[0].appendChild(script);
-        }
+        // 设置出错行
+        var err_line = $('.line-' + LINE, ol[0])[0];
+        err_line.className = err_line.className + ' line-error';
 
-        ;(function(){
-            var files = $('.toggle');
-            var ol    = $('ol', $('.prettyprint')[0]);
-            var li    = $('li', ol[0]);   
+        $.getScript('//cdn.bootcss.com/prettify/r298/prettify.min.js', function(){
+            prettyPrint();
 
-            // 短路径和长路径变换
-            for(var i = 0; i < files.length; i++){
-                files[i].ondblclick = function(){
-                    var title = this.title;
-
-                    this.title = this.innerHTML;
-                    this.innerHTML = title;
-                }
+            // 解决Firefox浏览器一个很诡异的问题
+            // 当代码高亮后，ol的行号莫名其妙的错位
+            // 但是只要刷新li里面的html重新渲染就没有问题了
+            if(window.navigator.userAgent.indexOf('Firefox') >= 0){
+                ol[0].innerHTML = ol[0].innerHTML;
             }
+        });
 
-            // 设置出错行
-            var err_line = $('.line-' + LINE, ol[0])[0];
-            err_line.className = err_line.className + ' line-error';
-
-            $.getScript('//cdn.bootcss.com/prettify/r298/prettify.min.js', function(){
-                prettyPrint();
-
-                // 解决Firefox浏览器一个很诡异的问题
-                // 当代码高亮后，ol的行号莫名其妙的错位
-                // 但是只要刷新li里面的html重新渲染就没有问题了
-                if(window.navigator.userAgent.indexOf('Firefox') >= 0){
-                    ol[0].innerHTML = ol[0].innerHTML;
-                }
-            });
-
-        })();
-    </script>
-    <?php } ?>
+    })();
+</script>
+<?php }else{ ?>
+<?php header('Location:/404.html');die; ?>
+<?php } ?>
 </body>
 </html>

@@ -17,32 +17,64 @@
 </head>
 <body style="padding:10px 10px;margin-bottom: 50px;">
 <div class="layui-container">
-    <form class="layui-form" action="?" method="post">
+    <form class="layui-form" action="?" method="post" onsubmit="return verify()">
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">商品网址</label>
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">商品网址</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" name="url" id='url' placeholder="请输入查询商品url,请确保id参数在前：目前只支持haohuo.jinritemai.com网站" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="layui-form-item layui-form-text">
+            <blockquote class="layui-elem-quote">一行一个查询链接,请保持在100个链接以内</blockquote>
+            <!--<label class="layui-form-label">商品网址</label>-->
             <div class="layui-input-block">
-                <input type="text" name="url" id='url' placeholder="请输入查询商品url,请确保id参数在前：目前只支持haohuo.jinritemai.com网站" autocomplete="off" class="layui-input">
+                    <textarea id="urlsid" name='url' rows=6 cols=20 onkeypress="check(this);" placeholder="请输入查询商品url,请确保id参数在前：目前只支持haohuo.jinritemai.com网站(一行一个)" class="layui-textarea"></textarea>
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">商品id</label>
-            <div class="layui-input-block">
-                <input type="text" name="gid" id='gid' placeholder="请输入查询商品id：目前只支持haohuo.jinritemai.com网站" autocomplete="off" class="layui-input">
-            </div>
-        </div>
+
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">商品id</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" name="gid" id='gid' placeholder="请输入查询商品id：目前只支持haohuo.jinritemai.com网站" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
         <input type="hidden" name="__token__" value="{$Request.token}" />
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">{$Think.lang.addbtn}</button>
+                <button class="layui-btn" type="submit" lay-submit lay-filter="formDemo">{$Think.lang.addbtn}</button>
+                <!--<input type="submit" value="提交" style="width: 140px;height:40px;color:red;margin-top: 30px;margin-left: 130px;">-->
             </div>
         </div>
     </form>
+    <script>
+        function check(obj){
+            var num = document.getElementById("urlsid").value.split('\n').length;
+            if(num>99){
+                //$('#urlsid').attr('disabled',true);
+                alert('一次性添加数量最多100条');
+                return false;
+            }
+        }
+        //验证表单提交
+        function verify() {
+            var $urls = $('#urlsid').val()
+            if ($urls==""){
+                alert('请输入url信息！')
+                return false;
+            }
+            var num = document.getElementById("urlsid").value.split('\n').length;
+            if(num>99) {
+                //$('#urlsid').attr('disabled', true);
+                alert('添加数量超出100条');
+                return false;
+            }
+        }
+    </script>
 </div>
 <script src="/public/static/admin/vendor/js/jquery.js"></script>
 <script src="/public/static/admin/vendor/layui/layui.js"></script>
-
 <script src="/public/static/admin/custom/js/admin.js"></script>
 <script>
 

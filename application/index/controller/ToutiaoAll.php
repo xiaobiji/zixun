@@ -25,9 +25,9 @@ elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 else {
     $ip_address = $_SERVER['REMOTE_ADDR'];
 }
-if($ip_address !== '39.105.48.74'){
-    $this->error("未登录，不允许访问",'login/index');
-}
+//if($ip_address !== '39.105.48.74'){
+//    $this->error("未登录，不允许访问",'login/index');
+//}
         //获取文章信息
         //关联查询
         $data=db('toutiao')
@@ -80,9 +80,14 @@ if($ip_address !== '39.105.48.74'){
             $data[$k]['discount_price']=$file_contents->data->discount_price;
             $data[$k]['sku_max_price']=$file_contents->data->sku_max_price;
             $data[$k]['sku_min_price']=$file_contents->data->sku_min_price;
+            $data[$k]['shop_name']=$file_contents->data->shop_name;
+            $data[$k]['company_name']=$file_contents->data->company_name;
             $data[$k]['update_time']=time();
-            Db::execute("INSERT INTO lee_toutiaolog set gid='".$data[$k]['gid']."',url='".$data[$k]['url']."',update_time='".$data[$k]['update_time']."',title='".$data[$k]['title']."',sell_num='".$data[$k]['sell_num']."',goods_img='".$data[$k]['goods_img']."',market_price='".$data[$k]['market_price']."',discount_price='".$data[$k]['discount_price']."',sku_max_price='".$data[$k]['sku_max_price']."',sku_min_price='".$data[$k]['sku_min_price']."'");
-            Db::execute("update lee_toutiao set update_time='".$data[$k]['update_time']."',sell_num='".$data[$k]['sell_num']."',discount_price='".$data[$k]['discount_price']."',is_sale=1 where id=".$data[$k]['id']);
+//            Db::execute("INSERT INTO lee_toutiaolog set gid='".$data[$k]['gid']."',url='".$data[$k]['url']."',update_time='".$data[$k]['update_time']."',title='".$data[$k]['title']."',sell_num='".$data[$k]['sell_num']."',goods_img='".$data[$k]['goods_img']."',market_price='".$data[$k]['market_price']."',discount_price='".$data[$k]['discount_price']."',sku_max_price='".$data[$k]['sku_max_price']."',sku_min_price='".$data[$k]['sku_min_price']."'");
+//            Db::execute("update lee_toutiao set update_time='".$data[$k]['update_time']."',sell_num='".$data[$k]['sell_num']."',discount_price='".$data[$k]['discount_price']."',is_sale=1 where id=".$data[$k]['id']);
+
+            Db::execute("INSERT INTO lee_toutiaolog set update_time='".$data[$k]['update_time']."',title='".$data[$k]['title']."',sell_num='".$data[$k]['sell_num']."',goods_img='".$data[$k]['goods_img']."',market_price='".$data[$k]['market_price']."',discount_price='".$data[$k]['discount_price']."',shop_name='".$data[$k]['shop_name']."',company_name='".$data[$k]['company_name']."',sku_max_price='".$data[$k]['sku_max_price']."',sku_min_price='".$data[$k]['sku_min_price']."'");
+            Db::execute("update lee_toutiao set update_time='".$data[$k]['update_time']."',title='".$data[$k]['title']."',sell_num='".$data[$k]['sell_num']."',goods_img='".$data[$k]['goods_img']."',market_price='".$data[$k]['market_price']."',discount_price='".$data[$k]['discount_price']."',shop_name='".$data[$k]['shop_name']."',company_name='".$data[$k]['company_name']."',sku_max_price='".$data[$k]['sku_max_price']."',sku_min_price='".$data[$k]['sku_min_price']."' where id=".$data[$k]['id']);
         }
     }
 }
