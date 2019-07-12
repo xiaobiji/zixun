@@ -1,11 +1,12 @@
 .idea
 composer
 .lock
-
 *.log
-
 runtime
 
-thinkphp/library/think/console/command/Make.php
-
-thinkphp/library/think/console/command/optimize/Config.php
+/thinkphp/library/think/console/command/Make.php
+.user.ini
+/thinkphp/library/think/console/command/optimize/Config.php
+/application/database.php
+database.php
+application/database.php

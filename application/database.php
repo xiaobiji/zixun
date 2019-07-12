@@ -28,11 +28,11 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'zixun_58lee_com',
+    'database'        => 'huaqi_crm',
     // 用户名
-    'username'        => 'zixun_58lee_com',
+    'username'        => 'root',
     // 密码
-    'password'        => 'zixun_58lee_com!@#',
+    'password'        => 'Abner',
     // 端口
     'hostport'        => '',
     // 连接dsn
